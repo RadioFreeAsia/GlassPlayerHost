@@ -1,0 +1,9 @@
+This is the README file for the GlassPlayerHost package.
+
+This software comes with ABSOLUTELY NO WARRANTY.  See the file 'COPYING' for
+details.
+
+See the file 'INSTALL' for instructions on building GlassCoderHost from source.
+
+GlassPlayerHost is a package for embedding the GlassPlayer stream player on
+a web-based host.
