@@ -1,2 +1,5 @@
 2016-01-22 Fred Gleason <fredg@paravelsystems.com>
 	* Initial package creation.
+2016-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added control program glassplayerhost(1) in
+	'src/glassplayercontrol/'.

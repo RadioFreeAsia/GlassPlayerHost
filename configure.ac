@@ -56,6 +56,11 @@ AC_CHECK_PROG(MOC_NAME,moc-qt4,[moc-qt4],[moc])
 AC_SUBST(MOC,$MOC_NAME)
 
 #
+# Check for WebHost (Mandatory)
+#
+PKG_CHECK_MODULES(WEBHOST,webhost,[],[AC_MSG_ERROR([*** WebHost not found ***])])
+
+#
 # Check for DocBook Toolchain
 #
 if test -z $DOCBOOK_DISABLED ; then
@@ -111,11 +116,21 @@ else
 fi 
 
 AC_CONFIG_FILES([ \
+    conf/Makefile \
     src/Makefile \
+    src/common/Makefile \
     src/glassplayerhost/Makefile \
     glassplayerhost.spec \
     Makefile ])
 AC_OUTPUT()
+
+#
+# Link Common Elements
+#
+rm -f src/glassplayerhost/config.cpp
+ln -s ../../src/common/config.cpp src/glassplayerhost/config.cpp
+rm -f src/glassplayerhost/config.h
+ln -s ../../src/common/config.h src/glassplayerhost/config.h
 
 AC_MSG_NOTICE()
 AC_MSG_NOTICE(Now enter 'make' to build the software.)

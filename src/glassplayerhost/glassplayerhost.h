@@ -22,7 +22,13 @@
 #define GLASSPLAYERHOST_H
 
 #include <QObject>
+#include <QProcess>
+#include <QTimer>
 
+#include "config.h"
+
+#define GLASSPLAYERHOST_RESTART_INTERVAL 1000
+#define GLASSPLAYERHOST_WATCHDOG_INTERVAL 1000
 #define GLASSPLAYERHOST_USAGE "[options]\n"
 
 class MainObject : public QObject
@@ -30,6 +36,20 @@ class MainObject : public QObject
  Q_OBJECT;
  public:
   MainObject(QObject *parent=0);
+
+ private slots:
+  void finishedData(int exit_code,QProcess::ExitStatus status);
+  void errorData(QProcess::ProcessError err);
+  void restartData();
+  void exitData();
+  void watchdogData();
+
+ private:
+  QProcess *host_process;
+  QTimer *host_restart_timer;
+  QTimer *host_exit_timer;
+  QTimer *host_watchdog_timer;
+  Config *host_config;
 };
 
 

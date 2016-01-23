@@ -1,6 +1,6 @@
 ## automake.am
 ##
-## Automake.am for GlassPlayer src/
+## Automake.am for GlassPlayerHost src/common
 ##
 ##   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 ##
@@ -20,8 +20,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-SUBDIRS = common\
-          glassplayerhost
+EXTRA_DIST = codec.cpp codec.h
 
 CLEANFILES = *~\
              *.idb\
