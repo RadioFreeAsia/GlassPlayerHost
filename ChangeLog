@@ -5,3 +5,6 @@
 	'src/glassplayercontrol/'.
 2016-01-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added web integration in 'src/web/'.
+2016-01-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'helpers/jsmin.c'.
+	* Added a 'make embed' target.

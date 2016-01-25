@@ -26,17 +26,26 @@
 
 ##SUBDIRS = $(DOCBOOK_AM_OPT) src
 SUBDIRS = conf\
+          helpers\
           src
 
-rpm:	dist
+#rpm:	dist
+#	cp glassplayerhost-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
+#	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux glassplayerhost.spec
+#	mv $(HOME)/rpmbuild/RPMS/$(ARCH)/glassplayerhost-*.rpm $(top_srcdir)/
+#	mv $(HOME)/rpmbuild/SRPMS/glassplayerhost-*.src.rpm $(top_srcdir)/
+#	rm $(HOME)/rpmbuild/SOURCES/glassplayerhost-$(VERSION).tar.gz
+#	rm -rf $(HOME)/rpmbuild/BUILD/glassplayerhost-$(VERSION)
+
+embed:	dist
 	cp glassplayerhost-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
-	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux glassplayerhost.spec
+	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux glassplayerhost-embed.spec
 	mv $(HOME)/rpmbuild/RPMS/$(ARCH)/glassplayerhost-*.rpm $(top_srcdir)/
 	mv $(HOME)/rpmbuild/SRPMS/glassplayerhost-*.src.rpm $(top_srcdir)/
 	rm $(HOME)/rpmbuild/SOURCES/glassplayerhost-$(VERSION).tar.gz
 	rm -rf $(HOME)/rpmbuild/BUILD/glassplayerhost-$(VERSION)
 
-EXTRA_DIST = glassplayerhost.spec.in\
+EXTRA_DIST = glassplayerhost-embed.spec.in\
              autogen.sh\
              get_distro.sh\
              get_target.sh\
@@ -56,6 +65,7 @@ DISTCLEANFILES = glassplayerhost.spec\
                  ltmain.sh
 
 MAINTAINERCLEANFILES = *~\
+                       *.spec\
                        *.tar.gz\
                        aclocal.m4\
                        config.guess\

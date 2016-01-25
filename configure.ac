@@ -116,12 +116,14 @@ else
 fi 
 
 AC_CONFIG_FILES([ \
+    conf/glassplayerhost-site.conf \
     conf/Makefile \
+    helpers/Makefile \
     src/Makefile \
     src/common/Makefile \
     src/glassplayerhost/Makefile \
     src/web/Makefile \
-    glassplayerhost.spec \
+    glassplayerhost-embed.spec \
     Makefile ])
 AC_OUTPUT()
 

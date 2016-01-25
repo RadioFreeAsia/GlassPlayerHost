@@ -1,7 +1,7 @@
 This is the installation file for the GlassPlayerHost package.
 
 RHEL 7 Embedded
-  ./configure --prefix=/usr --libexecdir=/var/www/cgi-bin --localstatedir=/var/www/html
+  ./configure --prefix=/usr --libexecdir=/var/www/cgi-bin --localstatedir=/var/www/html --sysconfdir=/etc/httpd/conf.d
 
 MANDATORY PREREQUISITES
 ---------------------------------------------------------------------------

@@ -20,7 +20,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-EXTRA_DIST = codec.cpp codec.h
+EXTRA_DIST = config.cpp config.h
 
 CLEANFILES = *~\
              *.idb\

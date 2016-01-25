@@ -1,8 +1,10 @@
-## automake.am
+## Makefile.am
 ##
-## conf/ automake.am for GlassPlayerHost
+## helpers/Makefile.am for GlassPlayerHost
 ##
-## (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
+## Use automake to process this into a Makefile.in
+##
+##   (C) Copyright 2014,2016 Fred Gleason <fredg@paravelsystems.com>
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -17,22 +19,11 @@
 ##   License along with this program; if not, write to the Free Software
 ##   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ##
-##
-## Use automake to process this into a Makefile.in
 
-nodist_sysconf_DATA = glassplayerhost-site.conf
+noinst_PROGRAMS = jsmin
 
-EXTRA_DIST = glassplayerhost.htpasswd\
-             glassplayerhost-sample.conf\
-             glassplayerhost-site.conf.in\
-             webhost.conf\
-             webhost.sysconfig
+dist_jsmin_SOURCES = jsmin.c
 
 CLEANFILES = *~
 
-DISTCLEANFILES = glassplayerhost-site.conf
-
-MAINTAINERCLEANFILES = *~\
-                       aclocal.m4\
-                       configure\
-                       Makefile.in
+MAINTAINERCLEANFILES = Makefile.in
