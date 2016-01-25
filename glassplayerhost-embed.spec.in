@@ -7,7 +7,8 @@ License:	GPLv2
 Source0:	fdk-aac-0.1.4.tar.gz
 Source1:        libmad-0.15.1b.tar.gz
 Source2:	webhost-0.8.2.tar.gz
-Source3:	%{name}-%{version}.tar.gz
+Source3:	glassplayer-0.6.1.tar.gz
+Source4:	%{name}-%{version}.tar.gz
 Patch:          libmad-0.15.1b-force-mem.patch.gz
 BuildRequires:	qt-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -23,7 +24,8 @@ GlassPlayHost is an embedded system for the GlassPlayer stream player.
 %setup -T -D -a 1 -c -n glassplayerhost
 %setup -T -D -a 2 -c -n glassplayerhost
 %setup -T -D -a 3 -c -n glassplayerhost
-%patch 
+%setup -T -D -a 4 -c -n glassplayerhost
+%patch
 
 
 %build
@@ -40,6 +42,9 @@ make
 cd ../webhost-0.8.2
 %configure
 make
+cd ../glassplayer-0.6.1
+%configure
+make
 cd ../%{name}-%{version}
 %configure --libexecdir=@libexecdir@ --localstatedir=@localstatedir@ --sysconfdir=@sysconfdir@
 make
@@ -52,6 +57,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 cd ../libmad-0.15.1b
 make install DESTDIR=$RPM_BUILD_ROOT
 cd ../webhost-0.8.2
+make install DESTDIR=$RPM_BUILD_ROOT
+cd ../glassplayer-0.6.1
 make install DESTDIR=$RPM_BUILD_ROOT
 cd ../%{name}-%{version}
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -71,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 rm -rf $RPM_BUILD_ROOT/usr/libexec
+rm -rf $RPM_BUILD_ROOT/%{_mandir}
 
 
 %clean
@@ -96,6 +104,7 @@ fi
 /etc/sysconfig/webhost
 #/etc/systemd/logind.conf.d/10-no-gettys.conf
 %{_bindir}/glassplayerhost
+%{_bindir}/glassplayer
 %{_libdir}/libfdk-aac.so*
 %{_libdir}/libmad.so*
 %{_libdir}/libwebhost.so*

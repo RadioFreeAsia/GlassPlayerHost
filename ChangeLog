@@ -8,3 +8,5 @@
 2016-01-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'helpers/jsmin.c'.
 	* Added a 'make embed' target.
+2016-01-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added GlassPlayer to 'glassplayerhost-embed.spec'.
