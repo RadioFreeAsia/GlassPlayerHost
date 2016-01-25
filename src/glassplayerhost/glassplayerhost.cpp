@@ -66,6 +66,15 @@ MainObject::MainObject(QObject *parent)
   }
 
   //
+  // UDP Interface
+  //
+  host_udp_control=new UdpControl(this);
+  connect(host_udp_control,SIGNAL(changeStreamUrl(const QString &)),
+	  this,SLOT(changeStreamUrlData(const QString &)));
+  connect(host_udp_control,SIGNAL(saveConfiguration()),
+	  this,SLOT(saveConfigurationData()));
+
+  //
   // Timer
   //
   host_restart_timer=new QTimer(this);
@@ -87,6 +96,18 @@ MainObject::MainObject(QObject *parent)
 
   host_restart_timer->start(0);
   host_exit_timer->start(1000);
+}
+
+
+void MainObject::changeStreamUrlData(const QString &url)
+{
+  host_config->setStreamUrl(url);
+}
+
+
+void MainObject::saveConfigurationData()
+{
+  host_config->save();
 }
 
 

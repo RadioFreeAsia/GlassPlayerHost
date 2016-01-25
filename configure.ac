@@ -120,6 +120,7 @@ AC_CONFIG_FILES([ \
     src/Makefile \
     src/common/Makefile \
     src/glassplayerhost/Makefile \
+    src/web/Makefile \
     glassplayerhost.spec \
     Makefile ])
 AC_OUTPUT()
@@ -131,6 +132,11 @@ rm -f src/glassplayerhost/config.cpp
 ln -s ../../src/common/config.cpp src/glassplayerhost/config.cpp
 rm -f src/glassplayerhost/config.h
 ln -s ../../src/common/config.h src/glassplayerhost/config.h
+
+rm -f src/web/config.cpp
+ln -s ../../src/common/config.cpp src/web/config.cpp
+rm -f src/web/config.h
+ln -s ../../src/common/config.h src/web/config.h
 
 AC_MSG_NOTICE()
 AC_MSG_NOTICE(Now enter 'make' to build the software.)

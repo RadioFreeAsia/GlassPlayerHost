@@ -20,7 +20,9 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-EXTRA_DIST = glassplayerhost-sample.conf
+EXTRA_DIST = glassplayerhost-sample.conf\
+             webhost.conf\
+             webhost.sysconfig
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = *~\

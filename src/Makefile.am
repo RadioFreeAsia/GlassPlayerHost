@@ -21,7 +21,8 @@
 ## Use automake to process this into a Makefile.in
 
 SUBDIRS = common\
-          glassplayerhost
+          glassplayerhost\
+          web
 
 CLEANFILES = *~\
              *.idb\

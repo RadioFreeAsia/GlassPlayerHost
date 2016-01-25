@@ -3,3 +3,5 @@
 2016-01-22 Fred Gleason <fredg@paravelsystems.com>
 	* Added control program glassplayerhost(1) in
 	'src/glassplayercontrol/'.
+2016-01-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added web integration in 'src/web/'.

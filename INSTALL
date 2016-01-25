@@ -1,5 +1,8 @@
 This is the installation file for the GlassPlayerHost package.
 
+RHEL 7 Embedded
+  ./configure --prefix=/usr --libexecdir=/var/www/cgi-bin --localstatedir=/var/www/html
+
 MANDATORY PREREQUISITES
 ---------------------------------------------------------------------------
 You will need the following installed and configured properly on your 
@@ -46,6 +49,8 @@ CentOS/RedHat 5 (x86_64): export CPPFLAGS=-I/usr/lib64/qt4/include
 
 Ubuntu:                   export CPPFLAGS=-I/usr/include/qt4
 
+
+Configure script invocation:
 
 INSTALLATION
 ------------

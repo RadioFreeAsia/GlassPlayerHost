@@ -1,6 +1,6 @@
 // glassplayerhost.h
 //
-// glassplayerhost(1) Launcher for glassplayer(1)
+// GlassPlayerHost CGI application
 //
 //   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 //
@@ -21,39 +21,12 @@
 #ifndef GLASSPLAYERHOST_H
 #define GLASSPLAYERHOST_H
 
-#include <QObject>
-#include <QProcess>
-#include <QTimer>
+#include <wh/whcgiapplication.h>
 
-#include "config.h"
-#include "udpcontrol.h"
-
-#define GLASSPLAYERHOST_RESTART_INTERVAL 1000
-#define GLASSPLAYERHOST_WATCHDOG_INTERVAL 1000
-#define GLASSPLAYERHOST_USAGE "[options]\n"
-
-class MainObject : public QObject
+class MainObject : public WHCgiApplication
 {
- Q_OBJECT;
  public:
   MainObject(QObject *parent=0);
-
- private slots:
-  void changeStreamUrlData(const QString &url);
-  void saveConfigurationData();
-  void finishedData(int exit_code,QProcess::ExitStatus status);
-  void errorData(QProcess::ProcessError err);
-  void restartData();
-  void exitData();
-  void watchdogData();
-
- private:
-  UdpControl *host_udp_control;
-  QProcess *host_process;
-  QTimer *host_restart_timer;
-  QTimer *host_exit_timer;
-  QTimer *host_watchdog_timer;
-  Config *host_config;
 };
 
 

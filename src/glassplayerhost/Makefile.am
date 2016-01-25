@@ -30,10 +30,12 @@ moc_%.cpp:	%.h
 
 bin_PROGRAMS = glassplayerhost
 
-dist_glassplayerhost_SOURCES = glassplayerhost.cpp glassplayerhost.h
+dist_glassplayerhost_SOURCES = glassplayerhost.cpp glassplayerhost.h\
+                               udpcontrol.cpp udpcontrol.h
 
 nodist_glassplayerhost_SOURCES = config.cpp config.h\
-                                 moc_glassplayerhost.cpp
+                                 moc_glassplayerhost.cpp\
+                                 moc_udpcontrol.cpp
 
 glassplayerhost_LDADD = @SIRLIBS@ @WEBHOST_LIBS@
 glassplayerhost_LDFLAGS = @SIRFLAGS@
