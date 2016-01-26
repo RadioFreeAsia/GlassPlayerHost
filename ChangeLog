@@ -12,3 +12,6 @@
 	* Added GlassPlayer to 'glassplayerhost-embed.spec'.
 2016-01-26 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'make fastembed' target.
+2016-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'glassplayerhost-fastembed.spec.in' that broke
+	the 'make fastembed' target on armv5tel.
