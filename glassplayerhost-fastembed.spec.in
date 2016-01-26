@@ -65,10 +65,10 @@ systemctl daemon-reload
 systemctl restart httpd
 systemctl restart webhost
 if test ! -e /etc/glassplayerhost.conf ; then
-    cp /usr/share/doc/glassplayerhost/glassplayerhost-sample.conf /etc/glassplayerhost.conf
+    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost-sample.conf /etc/glassplayerhost.conf
 fi
 if test ! -e /etc/httpd/conf.d/glassplayerhost.htpasswd ; then
-    cp /usr/share/doc/glassplayerhost/glassplayerhost.htpasswd /etc/httpd/conf.d/glassplayerhost.htpasswd
+    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost.htpasswd /etc/httpd/conf.d/glassplayerhost.htpasswd
 fi
 
 
