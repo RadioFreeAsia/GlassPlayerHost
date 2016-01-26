@@ -60,10 +60,6 @@ MainObject::MainObject(QObject *parent)
   //
   host_config=new Config();
   host_config->load();
-  if(host_config->streamUrl().isEmpty()) {
-    fprintf(stderr,"glassplayerhost: no StreamUrl specified\n");
-    exit(256);
-  }
 
   //
   // UDP Interface
