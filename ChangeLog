@@ -18,3 +18,6 @@
 2016-01-26 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'glassplayerhost-fastembed.spec.in' that broke
 	web password database initialization.
+2016-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'glassplayerhost-fastembed.spec.in' that broke
+	package of the Java scripts.
