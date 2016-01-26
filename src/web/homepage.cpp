@@ -45,8 +45,8 @@ void HomePage::render()
   //
   // Title Header
   //
-  printf("<tr><td><strong>GlassPlayer by RFA Labs</td>\n");
-  printf("<td>&nbsp;</td>\n");
+  printf("<tr><td><img src=\"/logo.png\"></td>\n");
+  printf("<td><strong>GlassPlayer by RFA Labs</td>\n");
   printf("</tr>\n");
   printf("<tr><td colspan=\"2\"><hr></td></tr>\n");
 

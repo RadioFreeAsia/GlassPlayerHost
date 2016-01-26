@@ -114,6 +114,7 @@ fi
 @localstatedir@/glassplayer.js
 @localstatedir@/index.html
 @localstatedir@/ipsystem.js
+@localstatedir@/logo.png
 @localstatedir@/navbar.js
 @localstatedir@/refresh.js
 @localstatedir@/utils.js

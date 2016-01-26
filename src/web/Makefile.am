@@ -45,6 +45,7 @@ glassplayerhost_cgi_LDADD = @WEBHOST_LIBS@
 localstate_DATA = glassplayer.js\
                   index.html\
                   ipsystem.js\
+                  logo.png\
                   navbar.js\
                   refresh.js\
                   utils.js
@@ -52,6 +53,7 @@ localstate_DATA = glassplayer.js\
 EXTRA_DIST = glassplayer.js\
              index.html\
              ipsystem.js\
+             logo.png\
              navbar.js\
              refresh.js\
              utils.js
