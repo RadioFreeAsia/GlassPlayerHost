@@ -24,3 +24,5 @@
 2016-01-26 Fred Gleason <fredg@paravelsystems.com>
 	* Removed the error check for an empty StreamUrl value in
 	'src/glassplayerhost/glassplayerhost.cpp'.
+2016-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the webhost version to 0.8.3.
