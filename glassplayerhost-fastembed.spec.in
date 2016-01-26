@@ -1,0 +1,100 @@
+Name:		glassplayerhost
+Version:	@VERSION@
+Release:	1%{?dist}
+Summary:	Embedded audio stream player
+Group:		Applications/Productivity
+License:	GPLv2
+Source: 	%{name}-%{version}.tar.gz
+Source1:        fdk-aac-0.1.4-1.el7.centos.x86_64.rpm
+Source2:        libmad-0.15.1b-5.el7.centos.x86_64.rpm
+Source3:        glassplayer-0.6.1-1.el7.centos.x86_64.rpm
+Source4:        webhost-0.8.2-1.el7.centos.x86_64.rpm
+BuildRequires:	qt-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+Requires:       httpd
+
+
+%description
+GlassPlayHost is an embedded system for the GlassPlayer stream player.
+
+
+%prep
+%setup
+
+
+%build
+%configure --libexecdir=@libexecdir@ --localstatedir=@localstatedir@ --sysconfdir=@sysconfdir@
+make
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+(cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE1} | cpio -ivd)
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/fdk-aac-0.1.4
+(cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE2} | cpio -ivd)
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/libmad-0.15.1b
+(cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE3} | cpio -ivd)
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/glassplayer-0.6.1
+(cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE4} | cpio -ivd)
+cat web/glassplayer.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/glassplayer.js
+cat web/ipsystem.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/ipsystem.js
+cat web/navbar.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/navbar.js
+cat web/refresh.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/refresh.js
+cat web/utils.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/utils.js
+mkdir -p $RPM_BUILD_ROOT/etc
+cp conf/webhost.conf $RPM_BUILD_ROOT/etc/webhost.conf
+mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
+cp conf/webhost.sysconfig $RPM_BUILD_ROOT/etc/sysconfig/webhost
+#mkdir -p $RPM_BUILD_ROOT/etc/systemd/logind.conf.d
+#cp conf/10-no-gettys.conf $RPM_BUILD_ROOT/etc/systemd/logind.conf.d/10-no-gettys.conf
+rm -rf $RPM_BUILD_ROOT%{_includedir}
+rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
+rm -rf $RPM_BUILD_ROOT/usr/libexec
+rm -rf $RPM_BUILD_ROOT/%{_mandir}
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%post
+systemctl daemon-reload
+systemctl restart httpd
+systemctl restart webhost
+if test ! -e /etc/glassplayerhost.conf ; then
+    cp /usr/share/doc/glassplayerhost/glassplayerhost-sample.conf /etc/glassplayerhost.conf
+fi
+if test ! -e /etc/httpd/conf.d/glassplayerhost.htpasswd ; then
+    cp /usr/share/doc/glassplayerhost/glassplayerhost.htpasswd /etc/httpd/conf.d/glassplayerhost.htpasswd
+fi
+
+
+%files
+%defattr(-,root,root,-)
+/etc/webhost.conf
+/etc/httpd/conf.d/glassplayerhost-site.conf
+/etc/sysconfig/webhost
+#/etc/systemd/logind.conf.d/10-no-gettys.conf
+%{_bindir}/glassplayerhost
+%{_bindir}/glassplayer
+%{_libdir}/libfdk-aac.so*
+%{_libdir}/libmad.so*
+%{_libdir}/libwebhost.so*
+%{_sbindir}/webhostd
+/usr/lib/systemd/system/webhost.service
+@libexecdir@/glassplayerhost.cgi
+@localstatedir@/glassplayer.js
+@localstatedir@/index.html
+@localstatedir@/ipsystem.js
+@localstatedir@/navbar.js
+@localstatedir@/refresh.js
+@localstatedir@/utils.js
+%doc conf/glassplayerhost-sample.conf
+%doc conf/glassplayerhost.htpasswd
+
+%changelog
+* Mon Jan 25 2016 Fred Gleason <fredg@paravelsystems.com>
+-- Initial spec file creation.

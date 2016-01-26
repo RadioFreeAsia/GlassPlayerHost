@@ -10,3 +10,5 @@
 	* Added a 'make embed' target.
 2016-01-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added GlassPlayer to 'glassplayerhost-embed.spec'.
+2016-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'make fastembed' target.

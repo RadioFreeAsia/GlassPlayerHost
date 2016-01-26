@@ -124,6 +124,7 @@ AC_CONFIG_FILES([ \
     src/glassplayerhost/Makefile \
     src/web/Makefile \
     glassplayerhost-embed.spec \
+    glassplayerhost-fastembed.spec \
     Makefile ])
 AC_OUTPUT()
 

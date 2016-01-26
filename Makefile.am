@@ -45,7 +45,16 @@ embed:	dist
 	rm $(HOME)/rpmbuild/SOURCES/glassplayerhost-$(VERSION).tar.gz
 	rm -rf $(HOME)/rpmbuild/BUILD/glassplayerhost-$(VERSION)
 
+fastembed:	dist
+	cp glassplayerhost-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
+	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux glassplayerhost-fastembed.spec
+	mv $(HOME)/rpmbuild/RPMS/$(ARCH)/glassplayerhost-*.rpm $(top_srcdir)/
+	mv $(HOME)/rpmbuild/SRPMS/glassplayerhost-*.src.rpm $(top_srcdir)/
+	rm $(HOME)/rpmbuild/SOURCES/glassplayerhost-$(VERSION).tar.gz
+	rm -rf $(HOME)/rpmbuild/BUILD/glassplayerhost-$(VERSION)
+
 EXTRA_DIST = glassplayerhost-embed.spec.in\
+             glassplayerhost-fastembed.spec.in\
              autogen.sh\
              get_distro.sh\
              get_target.sh\
