@@ -37,3 +37,5 @@
 2016-01-27 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed an HTML validation error in 'src/web/systempage.cpp'.
 	* Incremented the webhost version to 0.8.4.
+2016-01-27 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.2.
