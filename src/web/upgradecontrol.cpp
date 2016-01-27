@@ -35,7 +35,8 @@ UpgradeControl::UpgradeControl(WHCgiPost *post)
   setTitleText("GlassPlayer Restart");
   addScript("/refresh.js");
   addScript("/utils.js");
-  setOnLoadEvent("RefreshPage('"+ip_address+"',"+UPGRADE_REFRESH_TIME+");");
+  setOnLoadEvent("RefreshPage('"+ip_address+"',"+
+		 QString().sprintf("'%u'",UPGRADE_REFRESH_TIME)+");");
 }
 
 

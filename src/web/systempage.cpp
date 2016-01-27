@@ -40,7 +40,7 @@ SystemPage::~SystemPage()
 
 void SystemPage::render()
 {
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"1\">\n");
 
   //
   // IP Settings
@@ -131,25 +131,26 @@ void SystemPage::render()
   printf("<tr><td>Retype new password:</td><td colspan=\"2\"><input id=\"PASSWORD2\" type=\"password\" size=\"16\" maxlength=\"8\" value=\"********\">(verify)</td></tr>\n");
   printf("<tr><td align=\"center\" id=\"PASSWORD_ERR\" colspan=\"3\">&nbsp;</td></tr>\n");
 
+  //
+  // Apply Button
+  //
   printf("<tr><td align=\"center\" colspan=\"3\">WARNING: System will restart after applying new settings.</td></tr>\n");
-  printf("<td colspan=\"3\"><CENTER><INPUT type=\"button\" onclick=\"validateIpSettings()\" value=\"Apply\"></CENTER></td></tr>\n");
+  printf("<tr><td colspan=\"3\"><CENTER><INPUT type=\"button\" onclick=\"validateIpSettings()\" value=\"Apply\"></CENTER></td></tr>\n");
 
   //
   // Firmware Version
   //
-  printf("<tr><td colspan=\"3\">&#160;</td></tr>\n");
+  //  printf("<form action=\"/cgi-bin/glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\">\n");
+  printf("<tr><td colspan=\"3\">&#160;<form action=\"/cgi-bin/glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\"></td></tr>\n");
   printf("<tr class='tab-head'><td colspan=\"3\">Running Firmware Version: %s</td></tr>\n",VERSION);
-  printf("<form action=\"glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\">\n");
+  printf("<tr><td align=\"left\">\n");
   printf("<input type=\"hidden\" name=\"COMMAND\" value=\"%u\">\n",
 	 CGI_COMMAND_UPLOAD_FIRMWARE);
 
-  printf("<tr><td align=\"left\">Install updated firmware package:</td>\n");
+//  printf("<tr><td align=\"left\">Install updated firmware package:</td>\n");
+  printf("Install updated firmware package:</td>\n");
   printf("<td><input name=\"PKGFILE\" type=\"file\" id=\"PKGFILE\" /></td>\n");
-  printf("<td><input type=\"submit\" value=\"Install\"></td></tr>\n");
-  printf("</form>\n");
-
-  //  printf("<tr><td colspan=\"7\">&#160;</td></tr>\n");
-  //  printf("<tr><td colspan=\"7\" align=\"left\"><a href=\"%s\" target=\"firmware_archive\">Browse</a> the available firmware packages.</td></tr>\n",LIVEWIRE_FIRMWARE_URL);
+  printf("<td><input type=\"submit\" value=\"Install\"></form></td></tr>\n");
   printf("<tr><td colspan=\"3\">&#160;</td></tr>\n");
   printf("</table>\n");
   //  printf("</tbody></table>\n");
