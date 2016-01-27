@@ -32,6 +32,7 @@
 #include "systemcontrol.h"
 #include "systempage.h"
 #include "glassplayerhost.h"
+#include "upgradecontrol.h"
 
 MainObject::MainObject(QObject *parent)
   : WHCgiApplication(parent)
@@ -41,9 +42,7 @@ MainObject::MainObject(QObject *parent)
   addPage(CGI_COMMAND_COMMIT_GLASSPLAYER_CONFIG,new PlayerControl(post()));
   addPage(CGI_COMMAND_SERVE_IPSETTINGS,new SystemPage(post()));
   addPage(CGI_COMMAND_COMMIT_IPSETTINGS,new SystemControl(post()));
-  /*
-  addPage(CGI_COMMAND_UPLOAD_FIRMWARE,new UpdateControl(post()));
-  */
+  addPage(CGI_COMMAND_UPLOAD_FIRMWARE,new UpgradeControl(post()));
 }
 
 

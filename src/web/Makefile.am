@@ -35,7 +35,8 @@ dist_glassplayerhost_cgi_SOURCES = cgicommands.h\
                                    playercontrol.cpp playercontrol.h\
                                    playerpage.cpp playerpage.h\
                                    systemcontrol.cpp systemcontrol.h\
-                                   systempage.cpp systempage.h
+                                   systempage.cpp systempage.h\
+                                   upgradecontrol.cpp upgradecontrol.h
 
 nodist_glassplayerhost_cgi_SOURCES = config.cpp config.h
 
