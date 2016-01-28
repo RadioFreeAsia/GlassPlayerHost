@@ -47,3 +47,5 @@
 	* Added a 'MAC Address' field on the 'Player' page.
 2016-01-28 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the webhost version to 0.8.5.
+2016-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.6.0.
