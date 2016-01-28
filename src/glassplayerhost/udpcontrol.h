@@ -35,6 +35,7 @@ class UdpControl : public QObject
   ~UdpControl();
 
  signals:
+  void changeReceiverName(const QString &str);
   void changeStreamUrl(const QString &url);
   void saveConfiguration();
 

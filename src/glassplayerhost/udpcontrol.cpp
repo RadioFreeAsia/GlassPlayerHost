@@ -83,8 +83,16 @@ void UdpControl::ProcessPacket(const QString &msg,bool is_local)
   QStringList f0=msg.split(" ");
 
   if(is_local) {
-    if((f0[0]=="SS")&&(f0.size()==2)) {     // Set Stream URL
-      emit changeStreamUrl(f0[1]);
+    if((f0[0]=="SN")&&(f0.size()>=2)) {     // Set Receiver Name
+      f0.erase(f0.begin());
+      emit changeReceiverName(f0.join(" "));
+      return;
+    }
+
+    if((f0[0]=="SS")&&(f0.size()>=2)) {     // Set Stream URL
+      f0.erase(f0.begin());
+      emit changeStreamUrl(f0.join(" "));
+      return;
     }
 
     if(f0[0]=="SV") {                       // Save Configuration

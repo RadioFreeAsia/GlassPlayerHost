@@ -30,6 +30,8 @@ class Config
 {
  public:
   Config();
+  QString systemName() const;
+  void setSystemName(const QString &str);
   QString alsaDevice() const;
   void setAlsaDevice(const QString &str);
   QString audioDevice() const;
@@ -40,6 +42,7 @@ class Config
   void save(const QString &filename=GLASSPLAYERHOST_DEFAULT_CONF_FILE) const;
 
  private:
+  QString config_system_name;
   QString config_alsa_device;
   QString config_audio_device;
   QString config_stream_url;

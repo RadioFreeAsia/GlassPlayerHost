@@ -67,6 +67,8 @@ MainObject::MainObject(QObject *parent)
   host_udp_control=new UdpControl(this);
   connect(host_udp_control,SIGNAL(changeStreamUrl(const QString &)),
 	  this,SLOT(changeStreamUrlData(const QString &)));
+  connect(host_udp_control,SIGNAL(changeReceiverName(const QString &)),
+	  this,SLOT(changeReceiverNameData(const QString &)));
   connect(host_udp_control,SIGNAL(saveConfiguration()),
 	  this,SLOT(saveConfigurationData()));
 
@@ -98,6 +100,12 @@ MainObject::MainObject(QObject *parent)
 void MainObject::changeStreamUrlData(const QString &url)
 {
   host_config->setStreamUrl(url);
+}
+
+
+void MainObject::changeReceiverNameData(const QString &str)
+{
+  host_config->setSystemName(str);
 }
 
 

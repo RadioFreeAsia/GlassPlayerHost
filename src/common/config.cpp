@@ -28,6 +28,18 @@ Config::Config()
 }
 
 
+QString Config::systemName() const
+{
+  return config_system_name;
+}
+
+
+void Config::setSystemName(const QString &str)
+{
+  config_system_name=str;
+}
+
+
 QString Config::alsaDevice() const
 {
   return config_alsa_device;
@@ -69,6 +81,8 @@ void Config::load(const QString &filename)
   WHProfile *p=new WHProfile();
 
   p->setSource(filename);
+  config_system_name=
+    p->stringValue("GlassPlayerHost","SystemName","GlassPlayer");
   config_alsa_device=p->stringValue("GlassPlayerHost","AlsaDevice","hw:0");
   config_audio_device=p->stringValue("GlassPlayerHost","AudioDevice","ALSA");
   config_stream_url=p->stringValue("GlassPlayerHost","StreamUrl");
@@ -82,6 +96,7 @@ void Config::save(const QString &filename) const
 
   if((f=fopen((filename+"-back").toUtf8(),"w"))!=NULL) {
     fprintf(f,"[GlassPlayerHost]\n");
+    fprintf(f,"SystemName=%s\n",(const char *)config_system_name.toUtf8());
     fprintf(f,"AlsaDevice=%s\n",(const char *)config_alsa_device.toUtf8());
     fprintf(f,"AudioDevice=%s\n",(const char *)config_audio_device.toUtf8());
     fprintf(f,"StreamUrl=%s\n",(const char *)config_stream_url.toUtf8());

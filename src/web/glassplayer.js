@@ -22,6 +22,7 @@ function applyGlassPlayerSettings()
 {
     var form='';
     form+='COMMAND='+CGI_COMMAND_COMMIT_GLASSPLAYER_CONFIG;
+    form+='&RECEIVER_NAME='+Escape(Id('RECEIVER_NAME').value);
     form+='&STREAM_URL='+Escape(Id('STREAM_URL').value);
     PostForm(form,'/cgi-bin/glassplayerhost.cgi');
 }

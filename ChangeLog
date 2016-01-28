@@ -41,3 +41,7 @@
 	* Incremented the package version to 0.5.2.
 2016-01-28 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the GlassPlayer version to 0.6.2.
+2016-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a 'System Name' parameter in the web interface on
+	the 'System' page.
+	* Added a 'MAC Address' field on the 'Player' page.

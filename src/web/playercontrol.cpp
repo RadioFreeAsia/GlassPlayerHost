@@ -44,14 +44,19 @@ PlayerControl::~PlayerControl()
 
 void PlayerControl::render()
 {
+  QString receiver_name;
   QUrl stream_url;
 
+  if(!post()->getValue("RECEIVER_NAME",&receiver_name)) {
+    cgiapp->exit(400,"Missing RECEIVER_NAME");
+  }
   if(!post()->getValue("STREAM_URL",&stream_url)) {
     cgiapp->exit(400,"Missing STREAM_URL");
   }
   if(!stream_url.isValid()) {
     cgiapp->exit(400,"Invalid STREAM_URL");
   }
+  post()->sendUdpPacket(("SN "+receiver_name+"!").toUtf8(),6060);
   post()->sendUdpPacket(("SS "+stream_url.toString()+"!").toUtf8(),6060);
   post()->sendUdpPacket("SV!",6060);
   post()->sendRestartCommand("glassplayerhost");

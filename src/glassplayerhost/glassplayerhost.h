@@ -40,6 +40,7 @@ class MainObject : public QObject
 
  private slots:
   void changeStreamUrlData(const QString &url);
+  void changeReceiverNameData(const QString &str);
   void saveConfigurationData();
   void finishedData(int exit_code,QProcess::ExitStatus status);
   void errorData(QProcess::ProcessError err);
