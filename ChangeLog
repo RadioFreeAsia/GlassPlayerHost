@@ -45,3 +45,5 @@
 	* Implemented a 'System Name' parameter in the web interface on
 	the 'System' page.
 	* Added a 'MAC Address' field on the 'Player' page.
+2016-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the webhost version to 0.8.5.
