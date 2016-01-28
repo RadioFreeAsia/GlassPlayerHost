@@ -40,7 +40,7 @@ SystemPage::~SystemPage()
 
 void SystemPage::render()
 {
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"1\">\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n");
 
   //
   // IP Settings
