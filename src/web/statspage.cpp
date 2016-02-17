@@ -45,7 +45,7 @@ StatsPage::~StatsPage()
 
 void StatsPage::render()
 {
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tbody>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
   printf("<tr class='tab-head'><td>Stream Statistics</td></tr>\n");
 
   printf("<tr><td name=\"STATS\" id=\"STATS\">&nbsp;</td></tr>\n");

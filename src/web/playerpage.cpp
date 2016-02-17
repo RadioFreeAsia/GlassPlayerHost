@@ -33,7 +33,9 @@ PlayerPage::PlayerPage(WHCgiPost *post)
   setMenuRef("javascript:callPlayerControl();");
   addScript("/glassplayer.js");
   addScript("/navbar.js");
+  addScript("/player.js");
   addScript("/utils.js");
+  setOnLoadEvent("StartMetadata();");
 }
 
 
@@ -53,7 +55,18 @@ void PlayerPage::render()
   iface=p->stringValue("Webhost","NetworkInterface1","eth0");
   delete p;
 
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\"><tbody>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
+
+  //
+  // Metadata
+  //
+  printf("<tr class='tab-head'><td colspan=\"2\">Now Playing</td></tr>\n");
+  printf("<tr><td colspan=\"2\" name=\"METADATA\" id=\"METADATA\">&nbsp;</td></tr>\n");
+  printf("<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
+
+  //
+  // Receiver Parameters
+  //
   printf("<tr class='tab-head'><td colspan=\"2\">Receiver Parameters</td></tr>\n");
 
   //
@@ -83,7 +96,7 @@ void PlayerPage::render()
   // Stream URL
   //
   printf("<tr><td>Source URL:</td><td>\n");
-  printf("<input id=\"STREAM_URL\" name=\"STREAM_URL\" size=\"60\" maxlength=\"512\" value=\"%s\">\n",(const char *)config->streamUrl().toUtf8());
+  printf("<input id=\"STREAM_URL\" name=\"STREAM_URL\" size=\"80\" maxlength=\"512\" value=\"%s\">\n",(const char *)config->streamUrl().toUtf8());
   printf("<br></td>\n");
   printf("</tr>\n");
 

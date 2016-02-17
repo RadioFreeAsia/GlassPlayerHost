@@ -28,7 +28,8 @@ class StatsStore
  public:
   StatsStore();
   void update(const QString &str);
-  bool render(const QString &filename);
+  bool renderStats(const QString &filename);
+  bool renderMetadata(const QString &filename);
 
  private:
   std::map<QString,StatsValues *> store_values;

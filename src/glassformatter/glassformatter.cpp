@@ -37,8 +37,11 @@ MainObject::MainObject(QObject *parent)
   while(fgets(line,1024,stdin)!=NULL) {
     str=QString(line).trimmed();
     if(str.isEmpty()) {
-      if(!format_store->render("/var/www/html/stats/stats.html")) {
+      if(!format_store->renderStats("/var/www/html/stats/stats.html")) {
 	fprintf(stderr,"glassformatter: unable to write stats file\n");
+      }
+      if(!format_store->renderMetadata("/var/www/html/stats/metadata.html")) {
+	fprintf(stderr,"glassformatter: unable to write metadata file\n");
       }
     }
     else {
@@ -47,6 +50,7 @@ MainObject::MainObject(QObject *parent)
   }
 
   unlink("/var/www/html/stats/stats.html");
+  unlink("/var/www/html/stats/metadata.html");
   exit(0);
 }
 

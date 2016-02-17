@@ -25,7 +25,7 @@
 #include <QString>
 
 #define GLASSPLAYERHOST_DEFAULT_CONF_FILE "/etc/glassplayerhost.conf"
-
+#define GLASSPLAYERHOST_WEB_WIDTH 800
 class Config
 {
  public:

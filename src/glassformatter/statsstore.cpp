@@ -20,6 +20,7 @@
 
 #include <QStringList>
 
+#include "config.h"
 #include "statsstore.h"
 
 StatsStore::StatsStore()
@@ -47,7 +48,7 @@ void StatsStore::update(const QString &str)
 }
 
 
-bool StatsStore::render(const QString &filename)
+bool StatsStore::renderStats(const QString &filename)
 {
   FILE *f=NULL;
 
@@ -55,10 +56,72 @@ bool StatsStore::render(const QString &filename)
     return false;
   }
 
-  fprintf(f,"<table cellpadding=\"0\" cellspacing=\"3\" border=\"0\" bgcolor=\"#FFFFFF\" width=\"900\">\n");
+  fprintf(f,"<table cellpadding=\"0\" cellspacing=\"3\" border=\"0\" bgcolor=\"#FFFFFF\" width=\"%d\">\n",GLASSPLAYERHOST_WEB_WIDTH);
   for(std::map<QString,StatsValues *>::const_iterator it=store_values.begin();
       it!=store_values.end();it++) {
     it->second->render(f);
+  }
+  fprintf(f,"</table>\n");
+
+  fclose(f);
+  rename((filename+".temp").toUtf8(),filename.toUtf8());
+  return true;
+}
+
+
+bool StatsStore::renderMetadata(const QString &filename)
+{
+  FILE *f=NULL;
+  StatsValues *meta_values=store_values["Metadata"];
+  QStringList params;
+  QStringList values;
+
+  if(meta_values==NULL) {
+    return false;
+  }
+  if((f=fopen((filename+".temp").toUtf8(),"w"))==NULL) {
+    return false;
+  }
+
+  if(!meta_values->value("Name").isEmpty()) {
+    params.push_back("Name");
+    values.push_back(meta_values->value("Name"));
+  }
+  if(!meta_values->value("Description").isEmpty()) {
+    params.push_back("Description");
+    values.push_back(meta_values->value("Description"));
+  }
+  if(!meta_values->value("ChannelUrl").isEmpty()) {
+    params.push_back("Channel URL");
+    values.push_back(meta_values->value("ChannelUrl"));
+  }
+  if(!meta_values->value("Genre").isEmpty()) {
+    params.push_back("Genre");
+    values.push_back(meta_values->value("Genre"));
+  }
+
+  fprintf(f,"<table cellpadding=\"0\" cellspacing=\"5\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\">\n",GLASSPLAYERHOST_WEB_WIDTH);
+  if(meta_values->value("StreamTitle").isEmpty()) {
+    fprintf(f,"<tr><td colspan=\"2\">&nbsp;</td>\n");
+  }
+  else {
+    fprintf(f,"<tr><td colspan=\"2\"><big><strong>%s</strong></big></td>\n",
+	    (const char *)meta_values->value("StreamTitle").toUtf8());
+  }
+  if(meta_values->value("StreamUrl").isEmpty()) {
+    fprintf(f,"<td rowspan=\"%d\" width=\"100\">&nbsp;</td></tr>\n",params.size()+1);
+  }
+  else {
+    fprintf(f,"<td width=\"100\" rowspan=\"%d\"><img src=\"%s\" height=\"100\" width=\"100\"></td></tr>\n",
+	    params.size()+1,
+	    (const char *)meta_values->value("StreamUrl").toUtf8());
+  }
+  for(int i=0;i<params.size();i++) {
+    fprintf(f,
+	  "<tr valign=\"top\"><td align=\"right\"><strong>%s:</strong></td>\n",
+	    (const char *)params[i].toUtf8());
+    fprintf(f,"<td align=\"left\">%s</td></tr>\n",
+	    (const char *)values[i].toUtf8());
   }
   fprintf(f,"</table>\n");
 

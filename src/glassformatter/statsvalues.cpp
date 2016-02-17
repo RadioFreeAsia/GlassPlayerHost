@@ -26,6 +26,12 @@ StatsValues::StatsValues(const QString &category)
 }
 
 
+QString StatsValues::value(const QString &param)
+{
+  return values_values[param];
+}
+
+
 void StatsValues::update(const QString &param,const QString &value)
 {
   values_values[param]=value;

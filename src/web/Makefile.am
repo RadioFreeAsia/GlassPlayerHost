@@ -49,6 +49,7 @@ localstate_DATA = glassplayer.js\
                   ipsystem.js\
                   logo.png\
                   navbar.js\
+                  player.js\
                   refresh.js\
                   stats.js\
                   utils.js
@@ -58,6 +59,7 @@ EXTRA_DIST = glassplayer.js\
              ipsystem.js\
              logo.png\
              navbar.js\
+             player.js\
              refresh.js\
              stats.js\
              utils.js

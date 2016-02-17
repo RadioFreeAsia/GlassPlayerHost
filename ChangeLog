@@ -60,3 +60,5 @@
 2016-02-17 Fred Gleason <fredg@paravelsystems.com>
 	* Added glassformatter(1) in 'src/glassformatter/'.
 	* Added a 'Stream Statistics' page.
+2016-02-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added a stream metadata section to the 'Player' page.

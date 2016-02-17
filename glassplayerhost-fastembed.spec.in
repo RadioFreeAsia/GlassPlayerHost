@@ -94,6 +94,7 @@ fi
 @localstatedir@/logo.png
 @localstatedir@/ipsystem.js
 @localstatedir@/navbar.js
+@localstatedir@/player.js
 @localstatedir@/refresh.js
 @localstatedir@/stats.js
 @localstatedir@/utils.js

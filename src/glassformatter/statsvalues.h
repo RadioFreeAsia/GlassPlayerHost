@@ -31,6 +31,7 @@ class StatsValues
 {
  public:
   StatsValues(const QString &category);
+  QString value(const QString &param);
   void update(const QString &param,const QString &value);
   void render(FILE *f);
 

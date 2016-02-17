@@ -19,6 +19,7 @@
 //
 
 #include "cgicommands.h"
+#include "config.h"
 #include "systempage.h"
 
 SystemPage::SystemPage(WHCgiPost *post)
@@ -40,7 +41,7 @@ SystemPage::~SystemPage()
 
 void SystemPage::render()
 {
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\">\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\">\n",GLASSPLAYERHOST_WEB_WIDTH);
 
   //
   // IP Settings
