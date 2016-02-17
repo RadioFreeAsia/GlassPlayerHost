@@ -46,6 +46,8 @@ mkdir -p $RPM_BUILD_ROOT/etc
 cp conf/webhost.conf $RPM_BUILD_ROOT/etc/webhost.conf
 mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 cp conf/webhost.sysconfig $RPM_BUILD_ROOT/etc/sysconfig/webhost
+mkdir -p $RPM_BUILD_ROOT@localstatedir@/stats
+chmod 777 $RPM_BUILD_ROOT@localstatedir@/stats
 #mkdir -p $RPM_BUILD_ROOT/etc/systemd/logind.conf.d
 #cp conf/10-no-gettys.conf $RPM_BUILD_ROOT/etc/systemd/logind.conf.d/10-no-gettys.conf
 rm -rf $RPM_BUILD_ROOT%{_includedir}
@@ -78,6 +80,7 @@ fi
 /etc/httpd/conf.d/glassplayerhost-site.conf
 /etc/sysconfig/webhost
 #/etc/systemd/logind.conf.d/10-no-gettys.conf
+%{_bindir}/glassformatter
 %{_bindir}/glassplayerhost
 %{_bindir}/glassplayer
 %{_libdir}/libfdk-aac.so*
@@ -92,7 +95,9 @@ fi
 @localstatedir@/ipsystem.js
 @localstatedir@/navbar.js
 @localstatedir@/refresh.js
+@localstatedir@/stats.js
 @localstatedir@/utils.js
+%dir @localstatedir@/stats
 %doc conf/glassplayerhost-sample.conf
 %doc conf/glassplayerhost.htpasswd
 

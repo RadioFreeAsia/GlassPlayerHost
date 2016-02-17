@@ -1,6 +1,6 @@
-// glassplayerhost.cpp
+// glassformatter.cpp
 //
-// GlassPlayerHost CGI application.
+// glassformatter(1) Stat Processor for glassplayer(1)
 //
 //   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 //
@@ -18,33 +18,36 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #include <QCoreApplication>
 
-#include <wh/whcgipage.h>
-
-#include "cgicommands.h"
-#include "homepage.h"
-#include "playercontrol.h"
-#include "playerpage.h"
-#include "statspage.h"
-#include "systemcontrol.h"
-#include "systempage.h"
-#include "glassplayerhost.h"
-#include "upgradecontrol.h"
+#include "glassformatter.h"
 
 MainObject::MainObject(QObject *parent)
-  : WHCgiApplication(parent)
+  : QObject(parent)
 {
-  addPage(0,new HomePage(post()));
-  addPage(CGI_COMMAND_SERVE_GLASSPLAYER_CONFIG,new PlayerPage(post()));
-  addPage(CGI_COMMAND_COMMIT_GLASSPLAYER_CONFIG,new PlayerControl(post()));
-  addPage(CGI_COMMAND_SERVE_STATS,new StatsPage(post()));
-  addPage(CGI_COMMAND_SERVE_IPSETTINGS,new SystemPage(post()));
-  addPage(CGI_COMMAND_COMMIT_IPSETTINGS,new SystemControl(post()));
-  addPage(CGI_COMMAND_UPLOAD_FIRMWARE,new UpgradeControl(post()));
+  char line[1024];
+  QString str;
+
+  format_store=new StatsStore();
+
+  while(fgets(line,1024,stdin)!=NULL) {
+    str=QString(line).trimmed();
+    if(str.isEmpty()) {
+      if(!format_store->render("/var/www/html/stats/stats.html")) {
+	fprintf(stderr,"glassformatter: unable to write stats file\n");
+      }
+    }
+    else {
+      format_store->update(str);
+    }
+  }
+
+  unlink("/var/www/html/stats/stats.html");
+  exit(0);
 }
 
 

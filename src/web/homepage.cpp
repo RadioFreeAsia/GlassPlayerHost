@@ -63,6 +63,18 @@ void HomePage::render()
   printf("</tr>\n");
 
   //
+  // Stats Display
+  //
+  printf("<tr bgColor=\"#a6a3a6\">\n");
+  printf("<td align=\"center\" valign=\"middle\">\n");
+  printf("<a href=\"javascript:callStats();\">Statistics</a>\n");
+  printf("</td>\n");
+  printf("<td bgcolor=\"#C6C3C6\">\n");
+  printf("Display Stream Statistics\n");
+  printf("</td>\n"); 
+  printf("</tr>\n");
+
+  //
   // Configure IP Settings
   //
   printf("<tr bgColor=\"#a6a3a6\">\n");

@@ -44,7 +44,8 @@ void SigHandler(int signo)
 MainObject::MainObject(QObject *parent)
   : QObject(parent)
 {
-  host_process=NULL;
+  host_player_process=NULL;
+  host_formatter_process=NULL;
   WHCmdSwitch *cmd=
     new WHCmdSwitch(qApp->argc(),qApp->argv(),"glassplayerhost",VERSION,
 		    GLASSPLAYERHOST_USAGE);
@@ -115,7 +116,7 @@ void MainObject::saveConfigurationData()
 }
 
 
-void MainObject::finishedData(int exit_code,QProcess::ExitStatus status)
+void MainObject::playerFinishedData(int exit_code,QProcess::ExitStatus status)
 {
   if(status!=QProcess::NormalExit) {
     fprintf(stderr,"glassplayerhost: glassplayer process crashed\n");
@@ -123,9 +124,10 @@ void MainObject::finishedData(int exit_code,QProcess::ExitStatus status)
   else {
     if(exit_code!=0) {
       fprintf(stderr,
-       "glassplayerhost: glassplayer process returned non-zero exit code %d [%s]",
+    "glassplayerhost: glassplayer process returned non-zero exit code %d [%s]",
 	      exit_code,
-	      (const char *)host_process->readAllStandardError().constData());
+	      (const char *)host_player_process->readAllStandardError().
+	      constData());
     }
   }
   if(global_exiting) {
@@ -135,7 +137,7 @@ void MainObject::finishedData(int exit_code,QProcess::ExitStatus status)
 }
 
 
-void MainObject::errorData(QProcess::ProcessError err)
+void MainObject::playerErrorData(QProcess::ProcessError err)
 {
   fprintf(stderr,"glassplayerhost: glassplayer process error %d\n",err);
 }
@@ -145,29 +147,39 @@ void MainObject::restartData()
 {
   QStringList args;
 
+  args.push_back("--stats-out");
   args.push_back("--audio-device="+host_config->audioDevice());
   args.push_back("--alsa-device="+host_config->alsaDevice());
   args.push_back(host_config->streamUrl());
-  if(host_process!=NULL) {
-    delete host_process;
+  if(host_player_process!=NULL) {
+    delete host_player_process;
   }
-  host_process=new QProcess(this);
-  connect(host_process,SIGNAL(finished(int,QProcess::ExitStatus)),
-	  this,SLOT(finishedData(int,QProcess::ExitStatus)));
-  connect(host_process,SIGNAL(error(QProcess::ProcessError)),
-	  this,SLOT(errorData(QProcess::ProcessError)));
-  host_process->start("/usr/bin/glassplayer",args);
+  host_player_process=new QProcess(this);
+  connect(host_player_process,SIGNAL(finished(int,QProcess::ExitStatus)),
+	  this,SLOT(playerFinishedData(int,QProcess::ExitStatus)));
+  connect(host_player_process,SIGNAL(error(QProcess::ProcessError)),
+	  this,SLOT(playerErrorData(QProcess::ProcessError)));
+
+  if(host_formatter_process!=NULL) {
+    delete host_formatter_process;
+  }
+  host_formatter_process=new QProcess(this);
+  host_player_process->setStandardOutputProcess(host_formatter_process);
+  
+  host_player_process->start("/usr/bin/glassplayer",args);
+  host_formatter_process->start("/usr/bin/glassformatter");
+  host_formatter_process->setProcessChannelMode(QProcess::ForwardedChannels);
 }
 
 
 void MainObject::exitData()
 {
   if(global_exiting) {
-    if(host_process==NULL) {
+    if(host_player_process==NULL) {
       exit(0);
     }
     host_exit_timer->stop();
-    host_process->terminate();
+    host_player_process->terminate();
     host_watchdog_timer->start(GLASSPLAYERHOST_WATCHDOG_INTERVAL);
   }
 }
@@ -175,7 +187,7 @@ void MainObject::exitData()
 
 void MainObject::watchdogData()
 {
-  host_process->kill();
+  host_player_process->kill();
   fprintf(stderr,"sent SIGKILL to glassplayer process\n");
   qApp->processEvents();
   exit(0);

@@ -1,6 +1,6 @@
-// glassplayerhost.h
+// glassformatter.h
 //
-// glassplayerhost(1) Launcher for glassplayer(1)
+// glassformatter(1) Stat Processor for glassplayer(1)
 //
 //   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 //
@@ -18,19 +18,16 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#ifndef GLASSPLAYERHOST_H
-#define GLASSPLAYERHOST_H
+#ifndef GLASSFORMATTER_H
+#define GLASSFORMATTER_H
 
 #include <QObject>
 #include <QProcess>
 #include <QTimer>
 
-#include "config.h"
-#include "udpcontrol.h"
+#include "statsstore.h"
 
-#define GLASSPLAYERHOST_RESTART_INTERVAL 1000
-#define GLASSPLAYERHOST_WATCHDOG_INTERVAL 1000
-#define GLASSPLAYERHOST_USAGE "[options]\n"
+#define GLASSFORMATTER_USAGE "[options]\n"
 
 class MainObject : public QObject
 {
@@ -38,25 +35,9 @@ class MainObject : public QObject
  public:
   MainObject(QObject *parent=0);
 
- private slots:
-  void changeStreamUrlData(const QString &url);
-  void changeReceiverNameData(const QString &str);
-  void saveConfigurationData();
-  void playerFinishedData(int exit_code,QProcess::ExitStatus status);
-  void playerErrorData(QProcess::ProcessError err);
-  void restartData();
-  void exitData();
-  void watchdogData();
-
  private:
-  UdpControl *host_udp_control;
-  QProcess *host_player_process;
-  QProcess *host_formatter_process;
-  QTimer *host_restart_timer;
-  QTimer *host_exit_timer;
-  QTimer *host_watchdog_timer;
-  Config *host_config;
+  StatsStore *format_store;
 };
 
 
-#endif  // GLASSPLAYERHOST_H
+#endif  // GLASSFORMATTER_H

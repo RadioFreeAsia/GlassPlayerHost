@@ -121,6 +121,7 @@ AC_CONFIG_FILES([ \
     helpers/Makefile \
     src/Makefile \
     src/common/Makefile \
+    src/glassformatter/Makefile \
     src/glassplayerhost/Makefile \
     src/web/Makefile \
     glassplayerhost-embed.spec \
@@ -131,6 +132,11 @@ AC_OUTPUT()
 #
 # Link Common Elements
 #
+rm -f src/glassformatter/config.cpp
+ln -s ../../src/common/config.cpp src/glassformatter/config.cpp
+rm -f src/glassformatter/config.h
+ln -s ../../src/common/config.h src/glassformatter/config.h
+
 rm -f src/glassplayerhost/config.cpp
 ln -s ../../src/common/config.cpp src/glassplayerhost/config.cpp
 rm -f src/glassplayerhost/config.h

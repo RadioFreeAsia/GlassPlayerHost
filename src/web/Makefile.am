@@ -34,6 +34,7 @@ dist_glassplayerhost_cgi_SOURCES = cgicommands.h\
                                    homepage.cpp homepage.h\
                                    playercontrol.cpp playercontrol.h\
                                    playerpage.cpp playerpage.h\
+                                   statspage.cpp statspage.h\
                                    systemcontrol.cpp systemcontrol.h\
                                    systempage.cpp systempage.h\
                                    upgradecontrol.cpp upgradecontrol.h
@@ -49,6 +50,7 @@ localstate_DATA = glassplayer.js\
                   logo.png\
                   navbar.js\
                   refresh.js\
+                  stats.js\
                   utils.js
 
 EXTRA_DIST = glassplayer.js\
@@ -57,6 +59,7 @@ EXTRA_DIST = glassplayer.js\
              logo.png\
              navbar.js\
              refresh.js\
+             stats.js\
              utils.js
 
 CLEANFILES = *~\

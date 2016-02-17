@@ -1,7 +1,6 @@
-// navbar.js
+// statspage.h
 //
-// Client-side routines for the navigation components of the
-// GlassPlayerHost web interface.
+// Stats control page for GlassPlayerHost
 //
 //   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 //
@@ -19,24 +18,18 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-//
-// Main Menu Callbacks
-//
-function callPlayerControl() {
-    var form='';
-    form+='COMMAND='+CGI_COMMAND_SERVE_GLASSPLAYER_CONFIG;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
-}
+#ifndef STATSPAGE_H
+#define STATSPAGE_H
 
-function callIpSettings() {
-    var form='';
-    form+='COMMAND='+CGI_COMMAND_SERVE_IPSETTINGS;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
-}
+#include <wh/whcgipage.h>
 
-function callStats() {
-    var form='';
-    form+='COMMAND='+CGI_COMMAND_SERVE_STATS;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
-}
+class StatsPage : public WHCgiPage
+{
+ public:
+  StatsPage(WHCgiPost *post);
+  ~StatsPage();
+  void render();
+};
 
+
+#endif  // STATSPAGE_H
