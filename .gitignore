@@ -18,6 +18,9 @@ missing
 Makefile
 Makefile.in
 moc_*
+src/glassformatter/config.cpp
+src/glassformatter/config.h
+src/glassformatter/glassformatter
 src/glassplayerhost/config.cpp
 src/glassplayerhost/config.h
 src/glassplayerhost/glassplayerhost
