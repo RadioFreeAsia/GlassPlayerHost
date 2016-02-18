@@ -7,7 +7,7 @@ License:	GPLv2
 Source: 	%{name}-%{version}.tar.gz
 Source1:        fdk-aac-0.1.4-1%{?dist}.%{_host_cpu}.rpm
 Source2:        libmad-0.15.1b-5%{?dist}.%{_host_cpu}.rpm
-Source3:        glassplayer-0.6.4-1%{?dist}.%{_host_cpu}.rpm
+Source3:        glassplayer-0.6.5-1%{?dist}.%{_host_cpu}.rpm
 Source4:        webhost-0.8.8-1%{?dist}.%{_host_cpu}.rpm
 BuildRequires:	qt-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -35,7 +35,7 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/fdk-aac-0.1.4
 (cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE2} | cpio -ivd)
 rm -rf $RPM_BUILD_ROOT/usr/share/doc/libmad-0.15.1b
 (cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE3} | cpio -ivd)
-rm -rf $RPM_BUILD_ROOT/usr/share/doc/glassplayer-0.6.4
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/glassplayer-0.6.5
 (cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE4} | cpio -ivd)
 cat src/web/glassplayer.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/glassplayer.js
 cat src/web/ipsystem.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/ipsystem.js

@@ -7,7 +7,7 @@ License:	GPLv2
 Source0:	fdk-aac-0.1.4.tar.gz
 Source1:        libmad-0.15.1b.tar.gz
 Source2:	webhost-0.8.8.tar.gz
-Source3:	glassplayer-0.6.4.tar.gz
+Source3:	glassplayer-0.6.5.tar.gz
 Source4:	%{name}-%{version}.tar.gz
 Patch:          libmad-0.15.1b-force-mem.patch.gz
 BuildRequires:	qt-devel
@@ -42,7 +42,7 @@ make
 cd ../webhost-0.8.8
 %configure
 make
-cd ../glassplayer-0.6.4
+cd ../glassplayer-0.6.5
 %configure
 make
 cd ../%{name}-%{version}
@@ -58,7 +58,7 @@ cd ../libmad-0.15.1b
 make install DESTDIR=$RPM_BUILD_ROOT
 cd ../webhost-0.8.8
 make install DESTDIR=$RPM_BUILD_ROOT
-cd ../glassplayer-0.6.4
+cd ../glassplayer-0.6.5
 make install DESTDIR=$RPM_BUILD_ROOT
 cd ../%{name}-%{version}
 make install DESTDIR=$RPM_BUILD_ROOT
