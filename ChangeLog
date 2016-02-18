@@ -64,3 +64,6 @@
 	* Added a stream metadata section to the 'Player' page.
 2016-02-18 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the glassplayer version to 0.6.5.
+2016-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.6.2.

@@ -1,3 +1,27 @@
-The NEWS file for the GlassCoderHost package.
+This is the NEWS file for the GlassCoderHost package.
+
+-------------------------------------------------------------------------------
+v0.6.2 -- 02/18/2016
+
+Changes:
+  GlassPlayer Upgrade.  The embedded GlassPlayer code has been upgraded to
+  v0.6.5.
+
+  HLS Stream Support.  Playback of elemental (non-multirate) HLS streams
+  is now supported.
+
+  Static File Support.  Playback of static files is now supported.
+
+  Metadata Support.  Realtime metadata for IceCast/ShoutCast streams are
+  now displayed on the 'Player' page.
+
+  Statistics Support.  A 'stats' page has been added to allow inspection
+  of internal player state and parameters.
+
+Known Issues:
+  Multirate HLS streams are currently not supported.
+
+  Problems with displaying dynamic data --i.e. metadata and statistics
+  updates -- on the Chrome web browser.
 
 -------------------------------------------------------------------------------
