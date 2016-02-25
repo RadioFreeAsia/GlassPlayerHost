@@ -92,15 +92,14 @@ systemctl restart webhost
 if test ! -e /etc/glassplayerhost.conf ; then
     cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost-sample.conf /etc/glassplayerhost.conf
 fi
-if test ! -e /etc/httpd/conf.d/glassplayerhost.htpasswd ; then
-    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost.htpasswd /etc/httpd/conf.d/glassplayerhost.htpasswd
+if test ! -e /etc/glassplayerhost.users ; then
+    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost.users /etc/glassplayerhost.users
 fi
 
 
 %files
 %defattr(-,root,root,-)
 /etc/webhost.conf
-/etc/httpd/conf.d/glassplayerhost-site.conf
 /etc/sysconfig/webhost
 #/etc/systemd/logind.conf.d/10-no-gettys.conf
 %{_bindir}/glassplayerhost
@@ -119,7 +118,7 @@ fi
 @localstatedir@/refresh.js
 @localstatedir@/utils.js
 %doc glassplayerhost-%{version}/conf/glassplayerhost-sample.conf
-%doc glassplayerhost-%{version}/conf/glassplayerhost.htpasswd
+%doc glassplayerhost-%{version}/conf/glassplayerhost.users
 
 %changelog
 * Mon Jan 25 2016 Fred Gleason <fredg@paravelsystems.com>

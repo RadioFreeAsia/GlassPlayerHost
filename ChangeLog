@@ -78,3 +78,8 @@
 2016-02-25 Fred Gleason <fredg@paravelsystems.com>
 	* Modified 'src/cgi-src/systemcontrol.cpp' to use the 'AddUser2'
 	command for setting passwords.
+2016-02-25 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'conf/glassplayerhost-site.conf.in'.
+	* Removed the 'httpd' depenency from
+	'glassplayerhost-fastembed.spec.in'.
+	* Incremented the webhost version to 0.8.9.

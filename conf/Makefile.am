@@ -20,18 +20,12 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-nodist_sysconf_DATA = glassplayerhost-site.conf
-
-EXTRA_DIST = glassplayerhost.htpasswd\
+EXTRA_DIST = glassplayerhost.users\
              glassplayerhost-sample.conf\
-             glassplayerhost-site.conf.in\
              webhost.conf\
              webhost.sysconfig
 
 CLEANFILES = *~
-
-DISTCLEANFILES = glassplayerhost-site.conf
-
 MAINTAINERCLEANFILES = *~\
                        aclocal.m4\
                        configure\

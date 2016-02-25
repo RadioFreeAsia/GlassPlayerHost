@@ -8,14 +8,13 @@ Source: 	%{name}-%{version}.tar.gz
 Source1:        fdk-aac-0.1.4-1%{?dist}.%{_host_cpu}.rpm
 Source2:        libmad-0.15.1b-5%{?dist}.%{_host_cpu}.rpm
 Source3:        glassplayer-0.6.5-1%{?dist}.%{_host_cpu}.rpm
-Source4:        webhost-0.8.8-1%{?dist}.%{_host_cpu}.rpm
+Source4:        webhost-0.8.9-1%{?dist}.%{_host_cpu}.rpm
 BuildRequires:	qt-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
-Requires:       httpd
 
 
 %description
-GlassPlayHost is an embedded system for the GlassPlayer stream player.
+GlassPlayerHost is an embedded system for the GlassPlayer stream player.
 
 
 %prep
@@ -71,15 +70,14 @@ systemctl restart webhost
 if test ! -e /etc/glassplayerhost.conf ; then
     cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost-sample.conf /etc/glassplayerhost.conf
 fi
-if test ! -e /etc/httpd/conf.d/glassplayerhost.htpasswd ; then
-    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost.htpasswd /etc/httpd/conf.d/glassplayerhost.htpasswd
+if test ! -e /etc/glassplayerhost.users ; then
+    cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost.users /etc/glassplayerhost.users
 fi
 
 
 %files
 %defattr(-,root,root,-)
 /etc/webhost.conf
-/etc/httpd/conf.d/glassplayerhost-site.conf
 /etc/sysconfig/webhost
 #/etc/systemd/logind.conf.d/10-no-gettys.conf
 %{_bindir}/glassformatter
@@ -102,7 +100,7 @@ fi
 @localstatedir@/utils.js
 %dir @localstatedir@/stats
 %doc conf/glassplayerhost-sample.conf
-%doc conf/glassplayerhost.htpasswd
+%doc conf/glassplayerhost.users
 
 %changelog
 * Mon Jan 25 2016 Fred Gleason <fredg@paravelsystems.com>

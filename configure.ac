@@ -116,7 +116,6 @@ else
 fi 
 
 AC_CONFIG_FILES([ \
-    conf/glassplayerhost-site.conf \
     conf/Makefile \
     helpers/Makefile \
     src/Makefile \
