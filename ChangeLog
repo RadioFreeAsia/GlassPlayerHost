@@ -93,3 +93,5 @@
 2016-02-25 Fred Gleason <fredg@paravelsystems.com>
 	* Removed systemctl(8) commands from the %post script in
 	'glassplayerhost-fastembed.spec.in'.
+2016-02-25 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.6.5.
