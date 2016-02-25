@@ -83,3 +83,6 @@
 	* Removed the 'httpd' depenency from
 	'glassplayerhost-fastembed.spec.in'.
 	* Incremented the webhost version to 0.8.9.
+2016-02-25 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the httpd service restart from
+	'glassplayerhost-fastembed.spec.in'.

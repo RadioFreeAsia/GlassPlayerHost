@@ -65,7 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 systemctl daemon-reload
-systemctl restart httpd
 systemctl restart webhost
 if test ! -e /etc/glassplayerhost.conf ; then
     cp /usr/share/doc/glassplayerhost-@VERSION@/glassplayerhost-sample.conf /etc/glassplayerhost.conf
