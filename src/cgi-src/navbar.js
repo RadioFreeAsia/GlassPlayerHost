@@ -25,18 +25,18 @@
 function callPlayerControl() {
     var form='';
     form+='COMMAND='+CGI_COMMAND_SERVE_GLASSPLAYER_CONFIG;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
+    PostForm(form,'/glassplayerhost.cgi');
 }
 
 function callIpSettings() {
     var form='';
     form+='COMMAND='+CGI_COMMAND_SERVE_IPSETTINGS;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
+    PostForm(form,'/glassplayerhost.cgi');
 }
 
 function callStats() {
     var form='';
     form+='COMMAND='+CGI_COMMAND_SERVE_STATS;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
+    PostForm(form,'/glassplayerhost.cgi');
 }
 

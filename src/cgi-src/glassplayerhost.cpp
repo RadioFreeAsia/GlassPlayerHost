@@ -26,13 +26,13 @@
 #include <wh/whcgipage.h>
 
 #include "cgicommands.h"
+#include "glassplayerhost.h"
 #include "homepage.h"
 #include "playercontrol.h"
 #include "playerpage.h"
 #include "statspage.h"
 #include "systemcontrol.h"
 #include "systempage.h"
-#include "glassplayerhost.h"
 #include "upgradecontrol.h"
 
 MainObject::MainObject(QObject *parent)

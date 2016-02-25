@@ -120,10 +120,11 @@ AC_CONFIG_FILES([ \
     conf/Makefile \
     helpers/Makefile \
     src/Makefile \
+    src/cgi-src/Makefile \
     src/common/Makefile \
+    src/common/paths.h \
     src/glassformatter/Makefile \
     src/glassplayerhost/Makefile \
-    src/web/Makefile \
     glassplayerhost-embed.spec \
     glassplayerhost-fastembed.spec \
     Makefile ])
@@ -136,16 +137,22 @@ rm -f src/glassformatter/config.cpp
 ln -s ../../src/common/config.cpp src/glassformatter/config.cpp
 rm -f src/glassformatter/config.h
 ln -s ../../src/common/config.h src/glassformatter/config.h
+rm -f src/glassformatter/paths.h
+ln -s ../../src/common/paths.h src/glassformatter/paths.h
 
 rm -f src/glassplayerhost/config.cpp
 ln -s ../../src/common/config.cpp src/glassplayerhost/config.cpp
 rm -f src/glassplayerhost/config.h
 ln -s ../../src/common/config.h src/glassplayerhost/config.h
+rm -f src/glassplayerhost/paths.h
+ln -s ../../src/common/paths.h src/glassplayerhost/paths.h
 
-rm -f src/web/config.cpp
-ln -s ../../src/common/config.cpp src/web/config.cpp
-rm -f src/web/config.h
-ln -s ../../src/common/config.h src/web/config.h
+rm -f src/cgi-src/config.cpp
+ln -s ../../src/common/config.cpp src/cgi-src/config.cpp
+rm -f src/cgi-src/config.h
+ln -s ../../src/common/config.h src/cgi-src/config.h
+rm -f src/cgi-src/paths.h
+ln -s ../../src/common/paths.h src/cgi-src/paths.h
 
 AC_MSG_NOTICE()
 AC_MSG_NOTICE(Now enter 'make' to build the software.)

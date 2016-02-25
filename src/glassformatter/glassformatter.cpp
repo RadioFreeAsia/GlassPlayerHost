@@ -25,6 +25,7 @@
 #include <QCoreApplication>
 
 #include "glassformatter.h"
+#include "paths.h"
 
 MainObject::MainObject(QObject *parent)
   : QObject(parent)
@@ -37,10 +38,11 @@ MainObject::MainObject(QObject *parent)
   while(fgets(line,1024,stdin)!=NULL) {
     str=QString(line).trimmed();
     if(str.isEmpty()) {
-      if(!format_store->renderStats("/var/www/html/stats/stats.html")) {
+      if(!format_store->renderStats(GLASSPLAYERHOST_SCRIPT_DIR+"/stats.html")) {
 	fprintf(stderr,"glassformatter: unable to write stats file\n");
       }
-      if(!format_store->renderMetadata("/var/www/html/stats/metadata.html")) {
+      if(!format_store->
+	 renderMetadata(GLASSPLAYERHOST_SCRIPT_DIR+"/metadata.html")) {
 	fprintf(stderr,"glassformatter: unable to write metadata file\n");
       }
     }

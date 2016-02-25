@@ -72,3 +72,6 @@
 	'player.js' and 'stats.js' to be installed without being minimized.
 2016-02-18 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the package version to 0.6.3.
+2016-02-24 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored glassplayerhost(1) to use the integrated Webhost
+	HTTP server.

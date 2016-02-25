@@ -18,11 +18,15 @@ missing
 Makefile
 Makefile.in
 moc_*
+src/cgi-src/config.cpp
+src/cgi-src/config.h
+src/cgi-src/paths.h
+src/common/paths.h
 src/glassformatter/config.cpp
 src/glassformatter/config.h
 src/glassformatter/glassformatter
+src/glassformatter/paths.h
 src/glassplayerhost/config.cpp
 src/glassplayerhost/config.h
 src/glassplayerhost/glassplayerhost
-src/web/config.cpp
-src/web/config.h
+src/glassplayerhost/paths.h

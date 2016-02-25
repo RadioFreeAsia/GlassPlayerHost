@@ -37,13 +37,13 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/libmad-0.15.1b
 (cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE3} | cpio -ivd)
 rm -rf $RPM_BUILD_ROOT/usr/share/doc/glassplayer-0.6.5
 (cd $RPM_BUILD_ROOT && rpm2cpio %{SOURCE4} | cpio -ivd)
-cat src/web/glassplayer.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/glassplayer.js
-cat src/web/ipsystem.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/ipsystem.js
-cat src/web/navbar.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/navbar.js
-cat src/web/player.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/player.js
-cat src/web/refresh.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/refresh.js
-cat src/web/stats.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/stats.js
-cat src/web/utils.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/utils.js
+cat src/cgi-src/glassplayer.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/glassplayer.js
+cat src/cgi-src/ipsystem.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/ipsystem.js
+cat src/cgi-src/navbar.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/navbar.js
+cat src/cgi-src/player.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/player.js
+cat src/cgi-src/refresh.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/refresh.js
+cat src/cgi-src/stats.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/stats.js
+cat src/cgi-src/utils.js | helpers/jsmin > $RPM_BUILD_ROOT@localstatedir@/utils.js
 mkdir -p $RPM_BUILD_ROOT/etc
 cp conf/webhost.conf $RPM_BUILD_ROOT/etc/webhost.conf
 mkdir -p $RPM_BUILD_ROOT/etc/sysconfig

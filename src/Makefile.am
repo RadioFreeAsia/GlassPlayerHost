@@ -21,9 +21,9 @@
 ## Use automake to process this into a Makefile.in
 
 SUBDIRS = common\
+          cgi-src\
           glassformatter\
-          glassplayerhost\
-          web
+          glassplayerhost
 
 CLEANFILES = *~\
              *.idb\

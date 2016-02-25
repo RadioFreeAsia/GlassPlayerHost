@@ -1,6 +1,6 @@
 ## automake.am
 ##
-## Makefile.am for GlassPlayerHost web interface
+## Makefile.am for GlassPlayerHost CGI routines
 ##
 ## Use automake to process this into a Makefile.in
 ##
@@ -71,7 +71,8 @@ CLEANFILES = *~\
              *ilk\
              moc_*
 
-DISTCLEANFILES = config.cpp config.h
+DISTCLEANFILES = config.cpp config.h\
+                 paths.h
 
 MAINTAINERCLEANFILES = *~\
                        Makefile.in

@@ -93,11 +93,11 @@ function validateIpSettings() {
 	form+='&TIME_ZONE='+UrlEncode(Id("TIME_ZONE").value);
 	form+='&NTP_ADDRESS0='+UrlEncode(Id("NTP_ADDRESS0").value);
 	form+='&NTP_ADDRESS1='+UrlEncode(Id("NTP_ADDRESS1").value);
-	PostForm(form,'/cgi-bin/glassplayerhost.cgi');
+	PostForm(form,'/glassplayerhost.cgi');
     }
 }
 
 function downloadConfig() {
     var form='COMMAND='+CGI_COMMAND_DOWNLOAD_CONFIG;
-    PostForm(form,'/cgi-bin/glassplayerhost.cgi');
+    PostForm(form,'/glassplayerhost.cgi');
 }

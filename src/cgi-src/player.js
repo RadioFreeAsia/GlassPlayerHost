@@ -1,6 +1,6 @@
-// stats.js
+// player.js
 //
-// Client-side statistics routines for GlassPlayerHost.
+// Client-side player control routines for GlassPlayerHost.
 //
 //   (C) Copyright 2016 Fred Gleason <fredg@paravelsystems.com>
 //
@@ -18,7 +18,7 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-function refreshStats()
+function refreshMetadata()
 {
     var http=GetXMLHttpRequest();
     if(http==null) {
@@ -28,7 +28,7 @@ function refreshStats()
     //
     // Send the form
     //
-    http.open("GET","/stats/stats.html",false);
+    http.open("GET","/metadata.html",false);
     http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     http.send();
 
@@ -36,18 +36,18 @@ function refreshStats()
     // Process the response
     //
     if(http.status==200) {
-	Id('STATS').innerHTML=http.responseText;
+	Id('METADATA').innerHTML=http.responseText;
     }
     else {
-	Id('STATS').innerHTML=
+	Id('METADATA').innerHTML=
 	    '<table cellpadding="0" cellspacing="3" border="0" bgcolor="#FFFFFF" width="900">'+
-	    '<tr><td>Receiver not framed -- statistics unavailable.</td></tr>'+
+	    '<tr><td>[no information available]</td></tr>'+
 	    '</table>';
     }
 }
 
 
-function StartStats() {
-    refreshStats();
-    window.setInterval('refreshStats();',1000);
+function StartMetadata() {
+    refreshMetadata();
+    window.setInterval('refreshMetadata();',1000);
 }

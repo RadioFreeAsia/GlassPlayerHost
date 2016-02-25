@@ -141,8 +141,7 @@ void SystemPage::render()
   //
   // Firmware Version
   //
-  //  printf("<form action=\"/cgi-bin/glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\">\n");
-  printf("<tr><td colspan=\"3\">&#160;<form action=\"/cgi-bin/glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\"></td></tr>\n");
+  printf("<tr><td colspan=\"3\">&#160;<form action=\"/glassplayerhost.cgi\" method=\"post\" enctype=\"multipart/form-data\"></td></tr>\n");
   printf("<tr class='tab-head'><td colspan=\"3\">Running Firmware Version: %s</td></tr>\n",VERSION);
   printf("<tr><td align=\"left\">\n");
   printf("<input type=\"hidden\" name=\"COMMAND\" value=\"%u\">\n",

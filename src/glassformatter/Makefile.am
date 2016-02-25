@@ -47,7 +47,8 @@ CLEANFILES = *~\
              *.pdb\
              *ilk
 
-DISTCLEANFILES = config.cpp config.h
+DISTCLEANFILES = config.cpp config.h\
+                 paths.h
 
 MAINTAINERCLEANFILES = *~\
                        Makefile.in

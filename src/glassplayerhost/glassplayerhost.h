@@ -25,6 +25,8 @@
 #include <QProcess>
 #include <QTimer>
 
+#include <wh/whhttpserver.h>
+
 #include "config.h"
 #include "udpcontrol.h"
 
@@ -56,6 +58,7 @@ class MainObject : public QObject
   QTimer *host_exit_timer;
   QTimer *host_watchdog_timer;
   Config *host_config;
+  WHHttpServer *host_server;
 };
 
 

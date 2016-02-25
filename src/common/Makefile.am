@@ -20,7 +20,8 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-EXTRA_DIST = config.cpp config.h
+EXTRA_DIST = config.cpp config.h\
+             paths.h.in
 
 CLEANFILES = *~\
              *.idb\
@@ -28,7 +29,8 @@ CLEANFILES = *~\
              *.obj\
              *.pdb\
              *.qm\
-             moc_*
+             moc_*\
+             paths.h
 
 MAINTAINERCLEANFILES = *~\
                        *.tar.gz\

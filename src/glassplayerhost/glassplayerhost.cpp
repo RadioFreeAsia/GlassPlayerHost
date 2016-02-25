@@ -28,6 +28,7 @@
 #include <wh/whcmdswitch.h>
 
 #include "glassplayerhost.h"
+#include "paths.h"
 
 bool global_exiting=false;
 void SigHandler(int signo)
@@ -86,6 +87,39 @@ MainObject::MainObject(QObject *parent)
   host_watchdog_timer=new QTimer(this);
   host_watchdog_timer->setSingleShot(true);
   connect(host_watchdog_timer,SIGNAL(timeout()),this,SLOT(watchdogData()));
+
+  //
+  // Web Server
+  //
+  host_server=new WHHttpServer(this);
+  if(!host_server->listen(80)) {
+    fprintf(stderr,"glassplayerhost: unable to bind port 80\n");
+    exit(256);
+  }
+  host_server->addCgiSource("/",GLASSPLAYERHOST_CGI_DIR+"/glassplayerhost.cgi");
+  host_server->addCgiSource("/glassplayerhost.cgi",
+			    GLASSPLAYERHOST_CGI_DIR+"/glassplayerhost.cgi");
+
+  host_server->addStaticSource("/glassplayer.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/glassplayer.js");
+  host_server->addStaticSource("/ipsystem.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/ipsystem.js");
+  host_server->addStaticSource("/navbar.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/navbar.js");
+  host_server->addStaticSource("/player.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/player.js");
+  host_server->addStaticSource("/refresh.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/refresh.js");
+  host_server->addStaticSource("/stats.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/stats.js");
+  host_server->addStaticSource("/utils.js","application/javascript",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/utils.js");
+  host_server->addStaticSource("/logo.png","image/png",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/logo.png");
+  host_server->addStaticSource("/stats.html","text/html",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/stats.html");
+  host_server->addStaticSource("/metadata.html","text/html",
+			       GLASSPLAYERHOST_SCRIPT_DIR+"/metadata.html");
 
   //
   // Configure Signals
