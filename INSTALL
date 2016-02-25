@@ -68,24 +68,14 @@ BUILDING AN EMBEDDED ROOT FILESYSTEM
 2) Enable sound device by doing:
    echo snd-bcm2835 > /etc/modules-load.d/snd-bcm2835.conf
 
-2) yum install httpd ntp
+3) yum install ntp
 
-5) Edit '/usr/lib/systemd/system/httpd.service' and change
-   'PrivateTemp=true' to 'PrivateTemp=false' and
-   'After=network.target remote-fs.target nss-lookup.target' to
-   'After=network.target remote-fs.target nss-lookup.target webhost.service'.
+4) Install Paravel platform ssh key in '/root/.ssh/authorized_keys'.
 
-6) Install Paravel platform ssh key in '/root/.ssh/authorized_keys'.
-
-7) Edit '/etc/ssh/sshd_config' and change 'PasswordAuthentication yes'
+5) Edit '/etc/ssh/sshd_config' and change 'PasswordAuthentication yes'
    to 'PasswordAuthentiation no'.
 
-8) systemctl daemon-reload
-
-9) systemctl start httpd
-   systemctl enable httpd
-
-10) systemctl stop chronyd
+6) systemctl stop chronyd
    systemctl disable chronyd
    systemctl start ntpd
    systemctl enable ntpd

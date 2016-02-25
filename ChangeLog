@@ -88,3 +88,5 @@
 	'glassplayerhost-fastembed.spec.in'.
 2016-02-25 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the package version to 0.6.4.
+2016-02-25 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL' to reflect removal of httpd dependency.
