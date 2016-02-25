@@ -22,6 +22,7 @@
 
 #include <wh/whcgiapplication.h>
 
+#include "paths.h"
 #include "systemcontrol.h"
 
 SystemControl::SystemControl(WHCgiPost *post)
@@ -100,8 +101,8 @@ void SystemControl::render()
 			QHostAddress(ip_dns2));
   post()->sendNtpCommand(timezone,ntp1,ntp2);
   if(password!="********") {
-    post()->sendAddUserCommand("/etc/httpd/conf.d/glassplayerhost.htpasswd","user",
-			       password);
+    post()->sendAddUser2Command(GLASSPLAYERHOST_USER_FILE,"GlassPlayer",
+				"user",password);
   }
   post()->sendRestartCommand("glassplayerhost");
 

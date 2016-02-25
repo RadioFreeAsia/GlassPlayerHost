@@ -25,6 +25,6 @@
 
 #define GLASSPLAYERHOST_SCRIPT_DIR QString("@localstatedir@")
 #define GLASSPLAYERHOST_CGI_DIR QString("@libexecdir@")
-
+#define GLASSPLAYERHOST_USER_FILE "/etc/glassplayerhost.users"
 
 #endif  // PATHS_H

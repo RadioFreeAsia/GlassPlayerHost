@@ -75,3 +75,6 @@
 2016-02-24 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored glassplayerhost(1) to use the integrated Webhost
 	HTTP server.
+2016-02-25 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'src/cgi-src/systemcontrol.cpp' to use the 'AddUser2'
+	command for setting passwords.
