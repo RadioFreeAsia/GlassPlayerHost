@@ -99,3 +99,6 @@
 	* Refactored Metadata updates to use WebSocket connections.
 2016-03-01 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored Stats updates to use WebSocket connections.
+2016-03-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/cgi-src/stats.js' that caused the WebSocket
+	connection to fail when the server was not running on port 80.

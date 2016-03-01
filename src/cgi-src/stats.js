@@ -23,8 +23,8 @@ var stat_socket_coount=0;
 
 function StartStats()
 {
-    stat_socket=
-	new WebSocket('ws://'+location.hostname+'/','GlassPlayerStats');
+    stat_socket=new WebSocket('ws://'+location.hostname+':'+location.port+'/',
+			      'GlassPlayerStats');
 
     stat_socket.onmessage=function(event) {
 	var table;
