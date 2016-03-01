@@ -98,6 +98,7 @@ MainObject::MainObject(QObject *parent)
 			       GLASSPLAYERHOST_SCRIPT_DIR+"/metadata.html",
 			       "GlassPlayer");
   format_server->addSocketSource("/","GlassPlayerMetadata","GlassPlayer");
+  format_server->addSocketSource("/","GlassPlayerStats","GlassPlayer");
 
   //
   // Formatter
@@ -132,6 +133,10 @@ void MainObject::newSocketConnectionData(int conn_id,const QString &uri,
     NewMetadataConnection(conn_id);
     return;
   }
+  if(proto.toLower()=="glassplayerstats") {
+    NewStatsConnection(conn_id);
+    return;
+  }
   format_server->closeSocketConnection(conn_id,1008);
 }
 
@@ -145,7 +150,12 @@ void MainObject::socketConnectionClosedData(int conn_id,uint16_t stat_code,
       return;
     }
   }
-  printf("connection %d dropped\n",conn_id);
+  for(unsigned i=0;i<format_stat_ids.size();i++) {
+    if(format_stat_ids[i]==conn_id) {
+      format_stat_ids.erase(format_stat_ids.begin()+i);
+      return;
+    }
+  }
 }
 
 
@@ -183,35 +193,87 @@ void MainObject::reloadData()
 void MainObject::NewMetadataConnection(int conn_id)
 {
   format_metadata_ids.push_back(conn_id);
-  if(!format_stats["Metadata|StreamTitle"].isEmpty()) {
-    SendStat(conn_id,"StreamTitle","Stream Title",
-	     "<strong><big>"+format_stats["Metadata|StreamTitle"]+"</big></strong>");
+  if(!format_metadata["Metadata|StreamTitle"].isEmpty()) {
+    SendMetadata(conn_id,"StreamTitle","Stream Title",
+		 "<strong><big>"+format_metadata["Metadata|StreamTitle"]+
+		 "</big></strong>");
   }
-  if(!format_stats["Metadata|StreamUrl"].isEmpty()) {
-    SendStat(conn_id,"StreamUrl","Stream URL",
-	     "<img width=\"100\" height=\"100\" src=\""+
-	     format_stats["Metadata|StreamUrl"]+"\">");
+  if(!format_metadata["Metadata|StreamUrl"].isEmpty()) {
+    SendMetadata(conn_id,"StreamUrl","Stream URL",
+		 "<img width=\"100\" height=\"100\" src=\""+
+		 format_metadata["Metadata|StreamUrl"]+"\">");
   }
-  if(!format_stats["Metadata|Name"].isEmpty()) {
-    SendStat(conn_id,"Name","<strong>Name:</strong> ",
-	     format_stats["Metadata|Name"]);
+  if(!format_metadata["Metadata|Name"].isEmpty()) {
+    SendMetadata(conn_id,"Name","<strong>Name:</strong> ",
+		 format_metadata["Metadata|Name"]);
   }
-  if(!format_stats["Metadata|Description"].isEmpty()) {
-    SendStat(conn_id,"Description","<strong>Description:</strong> ",
-	     format_stats["Metadata|Description"]);
+  if(!format_metadata["Metadata|Description"].isEmpty()) {
+    SendMetadata(conn_id,"Description","<strong>Description:</strong> ",
+		 format_metadata["Metadata|Description"]);
   }
-  if(!format_stats["Metadata|ChannelUrl"].isEmpty()) {
-    SendStat(conn_id,"ChannelUrl","<strong>Channel URL:</strong> ",
-	     format_stats["Metadata|ChannelUrl"]);
+  if(!format_metadata["Metadata|ChannelUrl"].isEmpty()) {
+    SendMetadata(conn_id,"ChannelUrl","<strong>Channel URL:</strong> ",
+		 format_metadata["Metadata|ChannelUrl"]);
   }
-  if(!format_stats["Metadata|Genre"].isEmpty()) {
-    SendStat(conn_id,"Genre","<strong>Genre:</strong> ",
-	     format_stats["Metadata|Genre"]);
+  if(!format_metadata["Metadata|Genre"].isEmpty()) {
+    SendMetadata(conn_id,"Genre","<strong>Genre:</strong> ",
+		 format_metadata["Metadata|Genre"]);
   }
 }
 
 
-void MainObject::SendStat(int conn_id,const QString &name,const QString &label,
+void MainObject::NewStatsConnection(int conn_id)
+{
+  QStringList f0;
+  QString category;
+  QString label;
+
+  format_stat_ids.push_back(conn_id);
+  for(std::map<QString,QString>::const_iterator it=format_stats.begin();
+      it!=format_stats.end();it++) {
+    f0=it->first.split("|",QString::KeepEmptyParts);
+    category=f0[0];
+    f0.erase(f0.begin());
+    label=f0.join("|");
+    printf("SendStat(%s,%s,%s,%s)\n",
+	   (const char *)it->first.toUtf8(),
+	   (const char *)category.toUtf8(),
+	   (const char *)label.toUtf8(),
+	   (const char *)it->second.toUtf8());
+    SendStat(conn_id,it->first,category,label,it->second);
+  }
+
+  for(std::map<QString,QString>::const_iterator it=format_metadata.begin();
+      it!=format_metadata.end();it++) {
+    f0=it->first.split("|",QString::KeepEmptyParts);
+    category=f0[0];
+    f0.erase(f0.begin());
+    label=f0.join("|");
+    SendStat(conn_id,it->first,category,label,it->second);
+  }
+}
+
+
+void MainObject::SendMetadata(int conn_id,const QString &name,
+			      const QString &label,const QString &value)
+{
+  QStringList tags;
+  QStringList values;
+
+  tags.push_back("name");
+  values.push_back(name);
+  tags.push_back("label");
+  values.push_back(label);
+  tags.push_back("value");
+  values.push_back(value);
+  QString msg=MakeJson(tags,values);
+
+  format_server->sendSocketMessage(conn_id,msg);
+}
+
+
+void MainObject::SendStat(int conn_id,const QString &name,
+			  const QString &category,const QString &label,
 			  const QString &value)
 {
   QStringList tags;
@@ -219,6 +281,8 @@ void MainObject::SendStat(int conn_id,const QString &name,const QString &label,
 
   tags.push_back("name");
   values.push_back(name);
+  tags.push_back("category");
+  values.push_back(category);
   tags.push_back("label");
   values.push_back(label);
   tags.push_back("value");
@@ -243,18 +307,30 @@ void MainObject::ProcessLine(const QString &str)
   if(category=="Metadata") {
     if(label=="StreamTitle") {
       for(unsigned i=0;i<format_metadata_ids.size();i++) {
-	SendStat(format_metadata_ids[i],"StreamTitle","Stream Title",
-		 "<strong><big>"+value+"</big></strong>");
+	SendMetadata(format_metadata_ids[i],"StreamTitle","Stream Title",
+		     "<strong><big>"+value+"</big></strong>");
       }
     }
     if(label=="StreamUrl") {
       for(unsigned i=0;i<format_metadata_ids.size();i++) {
-	SendStat(format_metadata_ids[i],"StreamUrl","Stream URL",
-		 "<img width=\"100\" height=\"100\" src=\""+value+"\">");
+	SendMetadata(format_metadata_ids[i],"StreamUrl","Stream URL",
+		     "<img width=\"100\" height=\"100\" src=\""+value+"\">");
       }
     }
+    format_metadata[hdr]=value;
+
+    for(unsigned i=0;i<format_stat_ids.size();i++) {
+      SendStat(format_stat_ids[i],hdr,category,label,value);
+    }
   }
-  format_stats[hdr]=value;
+  else {
+    if(format_stats[hdr]!=value) {
+      for(unsigned i=0;i<format_stat_ids.size();i++) {
+	SendStat(format_stat_ids[i],hdr,category,label,value);
+      }
+    }
+    format_stats[hdr]=value;
+  }
 }
 
 

@@ -18,36 +18,37 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-function refreshStats()
+var stat_socket;
+var stat_socket_coount=0;
+
+function StartStats()
 {
-    var http=GetXMLHttpRequest();
-    if(http==null) {
-	return;
+    stat_socket=
+	new WebSocket('ws://'+location.hostname+'/','GlassPlayerStats');
+
+    stat_socket.onmessage=function(event) {
+	var table;
+	var row;
+	var cell;
+	var stats=JSON.parse(event.data);
+
+	if(Id(stats.name+'Label')) {
+	    cell=Id(stats.name+'Label');
+	    cell.innerHTML='<strong>'+stats.label+'</strong>';
+	    cell=Id(stats.name+'Value');
+	    cell.innerHTML=stats.value;
+	}
+	else {
+	    table=Id(stats.category+'Fields');
+	    row=table.insertRow(table.rows.length);
+	    cell=row.insertCell(0);
+	    cell.id=stats.name+'Label';
+	    cell.width=250;
+	    cell.innerHTML='<strong>'+stats.label+'</strong>';
+	    cell=row.insertCell(1);
+	    cell.id=stats.name+'Value';
+	    cell.innerHTML=stats.value;
+	}
+
     }
-
-    //
-    // Send the form
-    //
-    http.open("GET","/stats.html",false);
-    http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-    http.send();
-
-    //
-    // Process the response
-    //
-    if(http.status==200) {
-	Id('STATS').innerHTML=http.responseText;
-    }
-    else {
-	Id('STATS').innerHTML=
-	    '<table cellpadding="0" cellspacing="3" border="0" bgcolor="#FFFFFF" width="900">'+
-	    '<tr><td>Receiver not framed -- statistics unavailable.</td></tr>'+
-	    '</table>';
-    }
-}
-
-
-function StartStats() {
-    refreshStats();
-    window.setInterval('refreshStats();',1000);
 }

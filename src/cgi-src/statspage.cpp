@@ -45,10 +45,51 @@ StatsPage::~StatsPage()
 
 void StatsPage::render()
 {
-  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
-  printf("<tr class='tab-head'><td>Stream Statistics</td></tr>\n");
+  //
+  // Header
+  //
+  printf("<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"%d\" id=\"StatsTable\">\n",GLASSPLAYERHOST_WEB_WIDTH);
 
-  printf("<tr><td name=\"STATS\" id=\"STATS\">&nbsp;</td></tr>\n");
+  //
+  // Metadata
+  //
+  printf("<tr class='tab-head'><td>Stream Metadata</td></tr>\n");
+  printf("<tr><td>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\" id=\"MetadataFields\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
+  printf("</table>\n");
+
+  printf("<tr><td>&nbsp;</td></tr>\n");
+
+  //
+  // Connector Stats
+  //
+  printf("<tr class='tab-head'><td>Connector Statistics</td></tr>\n");
+  printf("<tr><td>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\" id=\"ConnectorFields\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
+  printf("</table>\n");
+
+  printf("<tr><td>&nbsp;</td></tr>\n");
+
+  //
+  // Codec Stats
+  //
+  printf("<tr class='tab-head'><td>Codec Statistics</td></tr>\n");
+  printf("<tr><td>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\" id=\"CodecFields\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
+  printf("</table>\n");
+
+  printf("<tr><td>&nbsp;</td></tr>\n");
+
+  //
+  // Device Stats
+  //
+  printf("<tr class='tab-head'><td>Audio Device Statistics</td></tr>\n");
+  printf("<tr><td>\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\" id=\"DeviceFields\"><tbody>\n",GLASSPLAYERHOST_WEB_WIDTH);
+  printf("</table>\n");
+
+  printf("</td></tr>\n");
 
   printf("</table>\n");
+
 }

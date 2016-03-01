@@ -49,15 +49,20 @@ class MainObject : public QObject
 
  private:
   void NewMetadataConnection(int conn_id);
-  void SendStat(int conn_id,const QString &name,const QString &label,
-		const QString &value);
+  void NewStatsConnection(int conn_id);
+  void SendMetadata(int conn_id,const QString &name,const QString &label,
+		    const QString &value);
+  void SendStat(int conn_id,const QString &name,const QString &category,
+		const QString &label,const QString &value);
   void ProcessLine(const QString &str);
   QString MakeJson(QStringList tags,QStringList values);
   WHHttpServer *format_server;
+  std::map<QString,QString> format_metadata;
   std::map<QString,QString> format_stats;
   QTimer *format_reload_timer;
   QSocketNotifier *format_notifier;
   std::vector<int> format_metadata_ids;
+  std::vector<int> format_stat_ids;
   QString format_accum;
 };
 

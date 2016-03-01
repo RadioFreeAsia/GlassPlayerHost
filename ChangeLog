@@ -97,3 +97,5 @@
 	* Incremented the package version to 0.6.5.
 2016-03-01 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored Metadata updates to use WebSocket connections.
+2016-03-01 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored Stats updates to use WebSocket connections.
