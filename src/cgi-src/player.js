@@ -18,36 +18,29 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-function refreshMetadata()
+var meta_socket;
+
+function StartMetadata()
 {
-    var http=GetXMLHttpRequest();
-    if(http==null) {
-	return;
+    meta_socket=
+	new WebSocket('ws://'+location.hostname+'/','GlassPlayerMetadata');
+
+    meta_socket.onmessage=function(event) {
+	var metadata=JSON.parse(event.data);
+
+	if((metadata.name=='StreamTitle')||
+	   (metadata.name=='StreamUrl')) {
+	    Id(metadata.name).innerHTML=metadata.value;
+	}
+	else {
+	    var table=Id('ChannelFields');
+	    var row=table.insertRow(table.rows.length);
+	    var cell=row.insertCell(0);
+	    cell.id=metadata.name+'Label';
+	    cell.innerHTML=metadata.label;
+	    cell=row.insertCell(1);
+	    cell.id=metadata.name+'Value';
+	    cell.innerHTML=metadata.value;
+	}
     }
-
-    //
-    // Send the form
-    //
-    http.open("GET","/metadata.html",false);
-    http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-    http.send();
-
-    //
-    // Process the response
-    //
-    if(http.status==200) {
-	Id('METADATA').innerHTML=http.responseText;
-    }
-    else {
-	Id('METADATA').innerHTML=
-	    '<table cellpadding="0" cellspacing="3" border="0" bgcolor="#FFFFFF" width="900">'+
-	    '<tr><td>[no information available]</td></tr>'+
-	    '</table>';
-    }
-}
-
-
-function StartMetadata() {
-    refreshMetadata();
-    window.setInterval('refreshMetadata();',1000);
 }

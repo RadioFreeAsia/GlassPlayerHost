@@ -31,17 +31,12 @@
 #include "paths.h"
 
 bool global_exiting=false;
-bool global_reload=false;
 void SigHandler(int signo)
 {
   switch(signo) {
   case SIGINT:
   case SIGTERM:
     global_exiting=true;
-    break;
-
-  case SIGHUP:
-    global_reload=true;
     break;
   }
 }
@@ -92,52 +87,6 @@ MainObject::MainObject(QObject *parent)
   host_watchdog_timer=new QTimer(this);
   host_watchdog_timer->setSingleShot(true);
   connect(host_watchdog_timer,SIGNAL(timeout()),this,SLOT(watchdogData()));
-
-  //
-  // Web Server
-  //
-  host_server=new WHHttpServer(this);
-  if(!host_server->listen(80)) {
-    fprintf(stderr,"glassplayerhost: unable to bind port 80\n");
-    exit(256);
-  }
-  host_server->loadUsers(GLASSPLAYERHOST_USER_FILE);
-  host_server->addCgiSource("/",GLASSPLAYERHOST_CGI_DIR+"/glassplayerhost.cgi",
-			    "GlassPlayer");
-  host_server->addCgiSource("/glassplayerhost.cgi",
-			    GLASSPLAYERHOST_CGI_DIR+"/glassplayerhost.cgi",
-			    "GlassPlayer");
-
-  host_server->addStaticSource("/glassplayer.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/glassplayer.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/ipsystem.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/ipsystem.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/navbar.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/navbar.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/player.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/player.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/refresh.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/refresh.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/stats.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/stats.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/utils.js","application/javascript",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/utils.js",
-			       "GlassPlayer");
-  host_server->addStaticSource("/logo.png","image/png",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/logo.png",
-			       "GlassPlayer");
-  host_server->addStaticSource("/stats.html","text/html",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/stats.html",
-			       "GlassPlayer");
-  host_server->addStaticSource("/metadata.html","text/html",
-			       GLASSPLAYERHOST_SCRIPT_DIR+"/metadata.html",
-			       "GlassPlayer");
 
   //
   // Configure Signals
@@ -227,10 +176,6 @@ void MainObject::restartData()
 
 void MainObject::exitData()
 {
-  if(global_reload) {
-    host_server->loadUsers(GLASSPLAYERHOST_USER_FILE);
-    global_reload=false;
-  }
   if(global_exiting) {
     if(host_player_process==NULL) {
       exit(0);

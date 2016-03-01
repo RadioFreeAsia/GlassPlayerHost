@@ -27,7 +27,7 @@ class StatsStore
 {
  public:
   StatsStore();
-  void update(const QString &str);
+  bool update(const QString &str);
   bool renderStats(const QString &filename);
   bool renderMetadata(const QString &filename);
 

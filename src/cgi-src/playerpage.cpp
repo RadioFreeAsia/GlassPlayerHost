@@ -28,7 +28,7 @@
 PlayerPage::PlayerPage(WHCgiPost *post)
   : WHCgiPage(post)
 {
-  setTitleText("GlassPlayer Configuration (IP Settings)");
+  setTitleText("GlassPlayer Stream Settings");
   setMenuText("Player");
   setMenuRef("javascript:callPlayerControl();");
   addScript("/glassplayer.js");
@@ -61,7 +61,19 @@ void PlayerPage::render()
   // Metadata
   //
   printf("<tr class='tab-head'><td colspan=\"2\">Now Playing</td></tr>\n");
-  printf("<tr><td colspan=\"2\" name=\"METADATA\" id=\"METADATA\">&nbsp;</td></tr>\n");
+  printf("<tr><td colspan=\"2\" name=\"METADATA\" id=\"METADATA\">\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" width=\"%d\" bgcolor=\"#FFFFFF\">\n",GLASSPLAYERHOST_WEB_WIDTH);
+  printf("<tr><td colspan=\"2\" id=\"StreamTitle\">&nbsp;</td></tr>\n");
+  printf("<tr>\n");
+  printf("<td align=\"right\" valign=\"top\" width=\"100\" id=\"StreamUrl\">&nbsp;</td>\n");
+  printf("<td align=\"left\" valign=\"top\">\n");
+  printf("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\" id=\"ChannelFields\">\n");
+  printf("</table>\n");
+  printf("</td>\n");
+  printf("</tr>\n");
+
+  printf("</table>\n");
+  printf("</td></tr>\n");
   printf("<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
 
   //

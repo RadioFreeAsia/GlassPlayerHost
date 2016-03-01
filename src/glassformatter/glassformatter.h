@@ -21,11 +21,15 @@
 #ifndef GLASSFORMATTER_H
 #define GLASSFORMATTER_H
 
+#include <map>
+#include <vector>
+
 #include <QObject>
 #include <QProcess>
+#include <QSocketNotifier>
 #include <QTimer>
 
-#include "statsstore.h"
+#include <wh/whhttpserver.h>
 
 #define GLASSFORMATTER_USAGE "[options]\n"
 
@@ -35,8 +39,26 @@ class MainObject : public QObject
  public:
   MainObject(QObject *parent=0);
 
+ private slots:
+  void newSocketConnectionData(int conn_id,const QString &uri,
+			       const QString &proto);
+  void socketConnectionClosedData(int conn_id,uint16_t stat_code,
+				  const QByteArray &body);
+  void readyReadData(int fd);
+  void reloadData();
+
  private:
-  StatsStore *format_store;
+  void NewMetadataConnection(int conn_id);
+  void SendStat(int conn_id,const QString &name,const QString &label,
+		const QString &value);
+  void ProcessLine(const QString &str);
+  QString MakeJson(QStringList tags,QStringList values);
+  WHHttpServer *format_server;
+  std::map<QString,QString> format_stats;
+  QTimer *format_reload_timer;
+  QSocketNotifier *format_notifier;
+  std::vector<int> format_metadata_ids;
+  QString format_accum;
 };
 
 

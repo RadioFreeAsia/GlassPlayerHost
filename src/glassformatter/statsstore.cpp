@@ -28,7 +28,7 @@ StatsStore::StatsStore()
 }
 
 
-void StatsStore::update(const QString &str)
+bool StatsStore::update(const QString &str)
 {
   QStringList f0=str.trimmed().split(": ",QString::KeepEmptyParts);
   if(f0.size()>=2) {
@@ -42,10 +42,12 @@ void StatsStore::update(const QString &str)
       if(store_values[category]==NULL) {
 	store_values[category]=new StatsValues(category);
       }
-      store_values[category]->update(param,value);
+      return store_values[category]->update(param,value);
     }
   }
+  return false;
 }
+
 
 
 bool StatsStore::renderStats(const QString &filename)

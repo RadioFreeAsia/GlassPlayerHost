@@ -32,9 +32,12 @@ QString StatsValues::value(const QString &param)
 }
 
 
-void StatsValues::update(const QString &param,const QString &value)
+bool StatsValues::update(const QString &param,const QString &value)
 {
+  bool ret=values_values[param]!=value;
+
   values_values[param]=value;
+  return ret;
 }
 
 
