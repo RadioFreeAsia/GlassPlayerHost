@@ -102,3 +102,7 @@
 2016-03-01 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'src/cgi-src/stats.js' that caused the WebSocket
 	connection to fail when the server was not running on port 80.
+2016-03-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassplayerhost/glassplayerhost.cpp' that
+	caused Metadata and Stats outputs to freeze after changing the
+	receiver URL value.

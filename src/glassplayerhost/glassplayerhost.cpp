@@ -177,11 +177,12 @@ void MainObject::restartData()
 void MainObject::exitData()
 {
   if(global_exiting) {
-    if(host_player_process==NULL) {
+    if((host_player_process==NULL)||(host_formatter_process==NULL)) {
       exit(0);
     }
     host_exit_timer->stop();
     host_player_process->terminate();
+    host_formatter_process->terminate();
     host_watchdog_timer->start(GLASSPLAYERHOST_WATCHDOG_INTERVAL);
   }
 }
