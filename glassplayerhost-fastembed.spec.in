@@ -8,7 +8,7 @@ Source: 	%{name}-%{version}.tar.gz
 Source1:        fdk-aac-0.1.4-1%{?dist}.%{_host_cpu}.rpm
 Source2:        libmad-0.15.1b-5%{?dist}.%{_host_cpu}.rpm
 Source3:        glassplayer-0.6.5-1%{?dist}.%{_host_cpu}.rpm
-Source4:        webhost-0.8.9-1%{?dist}.%{_host_cpu}.rpm
+Source4:        webhost-0.8.10-1%{?dist}.%{_host_cpu}.rpm
 BuildRequires:	qt-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -57,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 rm -rf $RPM_BUILD_ROOT/usr/libexec
 rm -rf $RPM_BUILD_ROOT/%{_mandir}
-
+rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/webhost-0.8.10/DEBUGGING.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
